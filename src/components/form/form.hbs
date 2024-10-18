@@ -1,0 +1,25 @@
+<form class='form' action="#">
+    <h1 class='form-title'>{{ obj.title }}</h1>
+
+    {{#each obj.inputs}}
+    <div class="form-input-wrap">
+        {{#if this.imgsrc}}
+            <label for="{{this.name}}" class="form-avatar-upload">
+                <img src="{{this.imgsrc}}" alt="">
+            </label>
+            <input class="form-hidden" id="{{this.name}}" name="{{this.name}}" type="{{this.type}}"/>
+        {{else}}
+            <input class="form-input {{#each classes}}{{this}} {{/each}}" name="{{this.name}}" type="{{this.type}}" {{#if this.disabled}}disabled{{/if}} value="{{this.data}}"/>
+            <label class="form-label" for="{{this.name}}">{{this.placeholder}}</label>
+        {{/if}}
+    </div>
+    {{/each}}
+    {{#each obj.buttons}}
+        {{#if this.link}}
+            <a class="form-link {{#each classes}}{{this}} {{/each}}" href="{{this.link}}" data-modal="{{modal}}">{{this.text}}</a>
+        {{else}}
+            <button class="form-button {{#each classes}}{{this}} {{/each}}">{{this.text}}</button>
+        {{/if}}
+
+    {{/each}} 
+</form>

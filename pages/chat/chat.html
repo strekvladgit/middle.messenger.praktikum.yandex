@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  {{> head title="Страница чата"}}
+  <body>
+    <div id="app">
+      <div id="chat">
+
+
+        <div class="logo">#BEZDISCORD</div>
+
+
+        <div class="chat-header">
+          <div class="chat-header__title">
+            <div class="chat-listitem__image">
+              <img src="/exmplAva.jpg" alt="">
+              <img src="/exmplAva2.jpg" alt="">
+            </div>
+            <div class="chat-listitem__name">
+              <span>user2</span>&nbsp;
+              <span>user1</span>&nbsp;
+            </div>
+          </div>
+          <div class="chat-header__controls">
+            <button class="chat-header__controls-button chat-header_controls_pin">
+              <img src="/pin.svg" alt="">
+            </button>
+            <button class="chat-header__controls-button chat-header_controls_add_user">
+              <img src="/user-plus.svg" alt="">
+            </button>
+            <button class="chat-header__controls-button chat-header_controls_notifications">
+              <img src="/bell.svg" alt="">
+            </button>
+            <button class="chat-header__controls-button chat-header_controls_leave">
+              <img src="/export-arrow-right.svg" alt="">
+            </button>
+          </div>
+        </div>
+
+
+        <div class="chat-search-wrap">
+          <input name="search" type="text" class="chat-search-input" placeholder="Поиск">
+        </div>
+
+
+        <div class="chat-list">
+          {{#each chatlist}}
+            {{> chatItem}}
+          {{/each}}
+        </div>
+
+
+        <div class="chat-content">
+          {{#each messages}}
+            {{> chatMessage}}
+          {{/each}}
+        </div>
+
+
+        <div class="multipanel">
+          <div class="multipanel-search-title">Ищем "lorem ipsum"</div>
+          <div class="multipanel-search-result">
+            <div class="message ">
+              <div class="message-avatar">
+                  <img src="/exmplAva2.jpg" alt="">
+              </div>
+              <div class="message-content">
+                  <div class="message-content__user-name">user1</div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  <span class="message-content__time">11:00</span>
+              </div>
+          </div>
+          </div>
+        </div>
+
+
+        <div class="profile-panel">
+          <a href="../profile/profile.html" class="profile-panel__link">
+            <div class="profile-panel__avatar">
+              <img src="/default.jpg" alt="">
+            </div>
+            <div class="profile-panel__username">
+              {{username}}
+              <div class="profile-panel__status">статус тут</div>
+            </div>
+          </a>
+        </div>
+
+
+        <div class="input-panel">
+          <div class="input-panel__wrap">
+            <input name="message" class="input-panel__input" type="text" placeholder="@...">
+            <button class="input-panel__button input-panel__button_addfile"><img src="/paperclip.svg" alt=""></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
