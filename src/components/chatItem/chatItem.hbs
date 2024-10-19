@@ -1,7 +1,7 @@
 <div class="chat-listitem">
     <div class="chat-listitem__image">
-        {{#each image}}
-            <img src="{{this}}" alt="">
+        {{#each users}}
+            <img src="{{this.avatar}}" alt="{{this.name}}-avatar">
         {{/each}}
     </div>
     <div class="chat-listitem__name">
@@ -9,7 +9,7 @@
             <span>{{name}}</span>
         {{else}}
             {{#each users}}
-                <span>{{this}}</span>&nbsp;
+                <span>{{this.name}}</span>&nbsp;
             {{/each}}
         {{/if}}
     </div>
