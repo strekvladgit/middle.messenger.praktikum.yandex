@@ -61,9 +61,22 @@ const context = {
     },
 
     chatlist: [
-      {name: '', users: ['user1'], image: ['/exmplAva.jpg'], selected:''},
-      {name: '', users: ['user2', 'user1'], image: ['/exmplAva.jpg', '/exmplAva2.jpg'], selected:''},
-      {name: 'Some Chat Name', users: ['user1', 'user2'], image: ['/exmplAva2.jpg', '/exmplAva.jpg'], selected:'true'},
+      {name: '', users: [{name:'user1', avatar:'/exmplAva.jpg'}], selected:''},
+      {name: '', 
+        users: [
+            {name:'user2', avatar:'/exmplAva.jpg',},
+            {name:'user1', avatar:'/exmplAva2.jpg',}
+        ], 
+        selected:''
+        },
+
+      {name: 'Some Chat Name', 
+        users: [
+            {name:'user1', avatar:'/exmplAva2.jpg',},
+            {name:'user2', avatar:'/exmplAva.jpg',}
+        ], 
+        selected:'true'
+        },
     ],
     messages: [
       {user:'user1', avatar:'/exmplAva2.jpg', content: 'Hello', },
