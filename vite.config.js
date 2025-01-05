@@ -2,7 +2,6 @@
 import Inspect from 'vite-plugin-inspect'
 import {resolve} from 'path'
 import handlebars from 'vite-plugin-handlebars'
-import context from './context'
 
 export default {
   build: {
@@ -37,7 +36,6 @@ export default {
         resolve(__dirname, './src/components/chatMessage'),
         resolve(__dirname, './src/components/modal'),
       ],
-      context: context,
     })
   ],
 }

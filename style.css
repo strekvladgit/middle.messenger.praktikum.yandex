@@ -26,4 +26,15 @@ a,button{
   width:100vw;
   background: radial-gradient(circle, rgba(255,255,255,1) 11%, rgba(255, 236, 220, 0.84) 100%);
 }
+#app div.page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width:100vw;
+}
+
+.hidden{
+  display: none !important;
+}
 

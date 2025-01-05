@@ -4,7 +4,6 @@
     top:0;
     width:100vw;
     height: 100vh;
-    display: none;
     animation: 0.3s fadeIn;
     &-overlay{
         display: flex;

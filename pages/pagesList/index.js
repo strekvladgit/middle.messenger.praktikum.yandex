@@ -1,8 +1,8 @@
 import '/style.css'
 import '/src/components/form/form.css'
-import Register from './Register'
+import pagesList from './pagesList';
 
-const register = new Register()
+const list = new pagesList()
 
 function render(query, block) {
     const root = document.querySelector(query);
@@ -10,4 +10,4 @@ function render(query, block) {
     return root;
   }
 
-  render("#app", register);
+  render("#app", list);
