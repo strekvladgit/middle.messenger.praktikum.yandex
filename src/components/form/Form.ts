@@ -1,6 +1,10 @@
 import Block, { Props } from "../../framework/Block";
 import './form.css'
 
+interface FormValues {
+    [key: string]: string | File | null;
+}
+
 export default class Form extends Block {
 
     constructor(props:Props){
@@ -12,8 +16,8 @@ export default class Form extends Block {
                     const {target} = e;
                     if (target instanceof HTMLFormElement) {
                         const formData = new FormData(target);
-                        const jsonForm = {};
-                        formData.forEach((value, key)=>{
+                        const jsonForm: FormValues = {};
+                        formData.forEach((value: FormDataEntryValue, key:string)=>{
                             jsonForm[key]=value;
 
                         })

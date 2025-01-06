@@ -1,4 +1,4 @@
-import Block, { Props } from "../../src/framework/Block";
+import Block from "../../src/framework/Block";
 import Form from "../../src/components/form/Form";
 import formField from "../../src/components/formField/formFiled";
 import Button from "../../src/components/button/Button";
