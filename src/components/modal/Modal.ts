@@ -1,4 +1,5 @@
 import Block, { Props } from "../../framework/Block";
+import './modal.css';
 
 export default class Modal extends Block {
 

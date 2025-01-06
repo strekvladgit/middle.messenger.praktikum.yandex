@@ -4,6 +4,7 @@
       "no-descending-specificity": null
     },
     "ignoreFiles": [
-      "build/*"
+      "build/*",
+      "node_modules/*"
     ]
 } 
