@@ -78,7 +78,7 @@
         opacity: 0.5;
         transition: 0.3s background;
         
-        & img{
+        img{
             width:100%;
         }
     }
