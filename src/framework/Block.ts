@@ -43,7 +43,7 @@ export default class Block {
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  private _registerEvents(eventBus) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -126,7 +126,7 @@ export default class Block {
   }
 
   private _getChildren(propsAndChildren : Props) {
-    const children = {};
+    const children: Record<string, Block> = {};
     const props: Props = {};
     const lists: Record<string, Props[]> |Record<string, Block[]> = {};
     
@@ -169,30 +169,37 @@ export default class Block {
 
     })
 
-    const fragment = this._createDocumentElement('template');
+    const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
     fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
     //контент для дочерних компонентов
-    Object.values(this.children).forEach(child=>{
-
-      fragment.content.querySelector(`[data-id='${child._id}']`).replaceWith(child.getContent())
+    Object.values(this.children).forEach((child)=>{
+      const dummy = fragment.content.querySelector(`[data-id='${child._id}']`);
+      if(dummy){
+        dummy.replaceWith(child.getContent() as Node)
+      }
     })
 
     //контент для списков
     Object.values(this.lists).forEach(array=>{
 
-      const listCont = this._createDocumentElement('template');
+      const listCont = this._createDocumentElement('template') as HTMLTemplateElement;
       if(this._isBlocksArray(array)){
         array.forEach(child=>{
-          fragment.content.querySelector(`[data-id="__l_${child._id}"]`).replaceWith(child.getContent());
+          const dummy = fragment.content.querySelector(`[data-id='__l_${child._id}']`);
+          if(dummy){
+            dummy.replaceWith(child.getContent());
+          }
         })
       } else {
         array.forEach(child => {
           listCont.content.append(`${child}`);
         })
-        if(fragment.content.querySelector(`[data-id="__l_${listsID}"]`)){
-          fragment.content.querySelector(`[data-id="__l_${listsID}"]`).replaceWith(listCont.content);
+        const dummy =fragment.content.querySelector(`[data-id="__l_${listsID}"]`);
+        if(dummy){
+          dummy.replaceWith(listCont.content);
         }
+        
       }
     })
     
@@ -246,8 +253,10 @@ export default class Block {
     });
   }
 
-  private _createDocumentElement(tagName) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+  private _createDocumentElement(tagName: string): HTMLTemplateElement | HTMLElement {
+    if (tagName === 'template') {
+      return document.createElement('template') as HTMLTemplateElement;
+    }
     return document.createElement(tagName);
   }
 

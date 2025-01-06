@@ -1,13 +1,13 @@
-import '/style.css'
-import '/src/components/form/form.css'
-import pagesList from './pagesList';
+import '../../style.css';
+import '../../src/components/form/form.css';
+import PagesList from './PagesList.ts';
 
-const list = new pagesList()
+const list = new PagesList();
 
 function render(query, block) {
-    const root = document.querySelector(query);
-    root.appendChild(block.getContent());
-    return root;
-  }
+  const root = document.querySelector(query);
+  root.appendChild(block.getContent());
+  return root;
+}
 
-  render("#app", list);
+render('#app', list);

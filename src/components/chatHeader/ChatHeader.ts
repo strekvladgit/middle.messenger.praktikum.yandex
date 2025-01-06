@@ -1,4 +1,4 @@
-import Block, { Props } from "../../framework/Block";
+import Block from "../../framework/Block";
 
 export default class ChatHeader extends Block {
 

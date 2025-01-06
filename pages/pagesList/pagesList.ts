@@ -1,7 +1,7 @@
 import Block from "../../src/framework/Block";
 import Link from "../../src/components/link/Link";
 
-export default class pagesList extends Block{
+export default class PagesList extends Block{
     constructor(){
         super('nav', {
             regLink: new Link({

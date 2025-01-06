@@ -1,4 +1,4 @@
-import Block, { Props } from "../../framework/Block";
+import Block from "../../framework/Block";
 import Input from "../input/Input";
 
 export default class InputPanel extends Block {

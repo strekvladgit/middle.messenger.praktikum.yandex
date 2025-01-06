@@ -27,15 +27,6 @@ export default {
       port: 3000
   },
   plugins: [
-    Inspect(),
-    handlebars({
-      partialDirectory: [
-        resolve(__dirname, './src/components/form'),
-        resolve(__dirname, './src/components/head'),
-        resolve(__dirname, './src/components/chatItem'),
-        resolve(__dirname, './src/components/chatMessage'),
-        resolve(__dirname, './src/components/modal'),
-      ],
-    })
-  ],
+    Inspect()
+  ]
 }
