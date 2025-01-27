@@ -1,8 +1,8 @@
 import '../../style.css';
 import '../../src/components/form/form.css';
-import Login from './Login.ts';
+import PagesList from './PagesList.ts';
 
-const login = new Login();
+const list = new PagesList();
 
 function render(query, block) {
   const root = document.querySelector(query);
@@ -10,4 +10,4 @@ function render(query, block) {
   return root;
 }
 
-render('#app', login);
+render('#app', list);

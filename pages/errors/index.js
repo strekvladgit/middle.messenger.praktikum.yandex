@@ -1,2 +1,2 @@
-import '/style.css'
-import './errors.css'
+import '../../style.css';
+import './errors.css';

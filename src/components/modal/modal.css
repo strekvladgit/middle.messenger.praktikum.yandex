@@ -1,25 +1,16 @@
-.modal{
+.modal {
     position: fixed;
-    left:0;
-    top:0;
-    width:100vw;
+    left: 0;
+    top: 0;
+    width: 100vw;
     height: 100vh;
-    display: none;
-    animation: 0.3s fadeIn;
-    &-overlay{
+
+    &-overlay {
         display: flex;
         justify-content: center;
-    align-items: center;
-        width:100%;
+        align-items: center;
+        width: 100%;
         height: 100%;
-        background:rgba(0,0,0,0.3)
-    }
-}
-@keyframes fadeIn {
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
+        background: rgb(0 0 0 / 30%);
     }
 }

@@ -1,28 +1,15 @@
-import '/style.css'
-import '/src/components/form/index'
-import '/src/components/modal/index'
+import '../../style.css';
+import '../../src/components/form/form.css';
+import '../../src/components/modal/modal.css';
 
-const btnEdit = document.querySelector('.form-button_edit');
-const inputs = document.querySelectorAll('.form-input');
+import Profile from './Profile.ts';
 
-btnEdit.addEventListener('click', (e)=>{
-    e.preventDefault();
-    inputs.forEach(input=>{
-        input.removeAttribute('disabled')
-    })
-})
+const profile = new Profile();
 
-const btnChangePass = document.querySelector('.form-button_change-pass');
-const modal = document.querySelector('.modal');
-const overlay = document.querySelector('.modal-overlay')
+function render(query, block) {
+  const root = document.querySelector(query);
+  root.appendChild(block.getContent());
+  return root;
+}
 
-btnChangePass.addEventListener('click', (e)=>{
-    e.preventDefault();
-    modal.style.display = 'block'
-})
-
-modal.addEventListener('click', (e)=>{
-    if(e.target.className == 'modal-overlay'){
-        modal.style.display = 'none';
-    }
-})
+render('#app', profile);

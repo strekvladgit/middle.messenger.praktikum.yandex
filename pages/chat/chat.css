@@ -6,20 +6,23 @@
     grid-template-columns: 300px auto 250px;
     grid-template-rows: 60px auto 80px;
 }
+
 .logo{
     display: flex;
     justify-content: center;
     align-items:center;
-    border-bottom:1px solid var(--lightBlue);
-    border-right:1px solid var(--lightBlue);
-    background:rgba(0,0,0, 0.05);
+    border-bottom:1px solid var(--light-blue);
+    border-right:1px solid var(--light-blue);
+    background:rgb(0 0 0 / 5%);
     font-weight: bold;
     font-size:24px;
     font-style: italic;
 }
+
 .chat-list{
-    border-right:1px solid var(--lightBlue);
+    border-right:1px solid var(--light-blue);
 }
+
 .chat-listitem{
     width:100%;
     display: flex;
@@ -27,10 +30,10 @@
     cursor: pointer;
     transition: 0.3s background;
     position: relative;
-    border-bottom:1px solid var(--lightBlue);
+    border-bottom:1px solid var(--light-blue);
     
     &:hover{
-        background:rgba(0,0,0, 0.05);
+        background:rgb(0 0 0 / 5%);
     }
 
     &__image{
@@ -48,7 +51,7 @@
             height: 70%;
             border-radius:50%;
             object-fit: cover;
-            border:2px solid var(--darkBlue);
+            border:2px solid var(--dark-blue);
             
             &:nth-child(2){
                 margin-right:-15px;
@@ -62,10 +65,12 @@
         display: flex;
         align-items: center;
         font-weight: bold;
-        & span:not(:last-child):after{
+
+        & span:not(:last-child)::after{
             content: ',';
         }
     }
+
     &__button_delete{
         background:none;
         width:18px;
@@ -82,11 +87,12 @@
             width:100%;
         }
     }
+
     &:hover &__button_delete{
         visibility: visible;
 
         &:hover{
-            background:rgba(0,0,0, 0.2);
+            background:rgb(0 0 0 / 20%);
         }
     }
 }
@@ -97,8 +103,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom:1px solid var(--lightBlue);
-    background:rgba(0,0,0, 0.05);
+    border-bottom:1px solid var(--light-blue);
+    background:rgb(0 0 0 / 5%);
 
     &__title{
         display: flex;
@@ -114,6 +120,7 @@
         display: flex;
         align-items:center;
     }
+
     &__controls-button{
         width:35px;
         height: 35px;
@@ -122,18 +129,20 @@
         transition: 0.3s background;
 
         &:hover{
-            background:rgba(0,0,0, 0.1);
+            background:rgb(0 0 0 / 10%);
         }
+
         & img{
             height: 20px;
         }
     }
 
 }
+
 .chat-search-wrap{
-    border-bottom:1px solid var(--lightBlue);
+    border-bottom:1px solid var(--light-blue);
     padding:0 10px;
-    background:rgba(0,0,0, 0.05);
+    background:rgb(0 0 0 / 5%);
     display: flex;
     justify-content: center;
     align-items:center;
@@ -143,7 +152,7 @@
         line-height: 32px;
         padding:0 8px 0 12px;
         border-radius: 16px;
-        background:right 12px center url(/search.svg) no-repeat, rgba(255, 255, 255, 0.658);
+        background:right 12px center url("/search.svg") no-repeat, rgb(255 255 255 / 65.8%);
         opacity: 0.75;
         transition: 0.3s opacity;
 
@@ -152,12 +161,14 @@
         }
     }
 }
+
 .chat-content{
     padding:10px 10px 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
+
 .message{
     display: flex;
     padding:10px;
@@ -175,7 +186,7 @@
         height: 50px;
         overflow: hidden;
         border-radius:50%;
-        border: 2px solid var(--darkBlue);
+        border: 2px solid var(--dark-blue);
         margin: 0 10px;
 
         & img{
@@ -184,24 +195,27 @@
         }
     
     }
+
     &-content{
         max-width:350px;
         min-width: 150px;
         padding:8px 8px 16px;
         background:#ffffff9e;
-        box-shadow: 0px 0px 25px 2px rgba(34, 60, 80, 0.1);
+        box-shadow: 0 0 25px 2px rgb(34 60 80 / 10%);
         border-radius:10px;
         position: relative;
 
         & img{
             max-width:100%;
         }
+
         &__user-name{
             font-size:18px;
             font-weight: 500;
             margin-bottom:10px;
-            color:var(--darkBlue);
+            color:var(--dark-blue);
         }
+
         &__time{
             position: absolute;
             bottom:6px;
@@ -217,16 +231,16 @@
 }
 
 .profile-panel{
-    border-top: 1px solid var(--lightBlue);
+    border-top: 1px solid var(--light-blue);
     display: flex;
     align-items:center;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgb(0 0 0 / 10%);
 
     &__avatar{
         width:50px;
         height: 50px;
         border-radius:50%;
-        border: 2px solid var(--darkBlue);
+        border: 2px solid var(--dark-blue);
         overflow: hidden;
         margin-left:10px;
 
@@ -235,33 +249,38 @@
             max-width:100%;
         }
     }
+
     &__link{
         display: flex;
         text-decoration: none;
     }
+
     &__username{
-        color:var(--darkBlue);
+        color:var(--dark-blue);
         padding-left:8px;
         font-weight: 500;
         display: flex;
         justify-content: center;
         flex-direction: column;
     }
+
     &__status{
         font-weight: 300;
     }
 }
 
 .input-panel{
-    border-top: 1px solid var(--lightBlue);
+    border-top: 1px solid var(--light-blue);
     display: flex;
     align-items:center;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgb(0 0 0 / 10%);
     padding:0 10px;
+
     &__wrap{
         width:100%; 
         position: relative;
     }
+
     &__input{
         background:#fff;
         line-height: 42px;
@@ -277,6 +296,7 @@
         }
         
     }
+
     &__button{
         position: absolute;
         right:12px;
@@ -295,8 +315,8 @@
 
 .multipanel{
     grid-row: span 2;
-    border-left: 1px solid var(--lightBlue);
-    background: rgba(0, 0, 0, 0.1);
+    border-left: 1px solid var(--light-blue);
+    background: rgb(0 0 0 / 10%);
 
     &-search-title{
         text-align: center;
@@ -307,13 +327,16 @@
 
     & .message{
         font-size:14px;
+
         &-content{
             width:calc(100% - 40px);
         }
+
         &-content__user-name{
             font-size:16px;
             margin-bottom: 6px;
         }
+
         &-avatar{
             width:40px;
             height: 40px;

@@ -1,6 +1,6 @@
 export default {
   plugins: {
-    'autoprefixer': {},
-    'postcss-nested': {}
+    autoprefixer: {},
+    'postcss-nested': {},
   },
-}
+};
