@@ -1,10 +1,18 @@
-import Block from "../../src/framework/Block";
+import Block, { Props } from "../../src/framework/Block";
 import Form from "../../src/components/form/Form";
 import formField from "../../src/components/formField/formFiled";
 import Link from "../../src/components/link/Link";
 import Button from "../../src/components/button/Button";
+import Router from "../../src/framework/Router";
+import AuthController from "../../src/controllers/AuthController";
+import { submitForm } from "../../src/utils/submitForm";
+import { DataType } from "../../src/utils/HTTPTransport";
+import connect from "../../src/utils/connect";
 
-export default class Register extends Block{
+
+
+
+class Register extends Block{
     constructor(){
         super('div', {
             attr: {class: 'page'},
@@ -80,16 +88,69 @@ export default class Register extends Block{
                     })
                 ],
                 button: new Button({text:'Зарегистрироваться', attr:{class: 'form-button'}}),
-                link: new Link({text:'Войти', attr:{class: 'form-link', href:'#'}})
+                links: [
+                    new Link({
+                        text:'Войти', 
+                        attr:{class: 'form-link', href:'#'},
+                        events: {
+                            click: (e: Event) => {
+                                e.preventDefault();
+                                new Router('#app').go('/login')
+                                // new AuthController().logout();
+                            }
+                        }
+                    }),
+                    new Link({
+                        text:'TEST LOGOUT', 
+                        attr:{class: 'form-link', href:'#'},
+                        events: {
+                            click: (e: Event) => {
+                                e.preventDefault();
+                                
+                                new AuthController().logout();
+                            }
+                        }
+                    }),
+                ],
+                
+                events: {
+                    submit: (e: Event)=>{submitForm(e, (data: DataType) => new AuthController().create(data))}
+                }
+                
                 //<a class="form-link {{#each classes}}{{this}} {{/each}}" href="{{this.link}}" data-modal="{{modal}}">{{this.text}}</a>
-            })
+            }),
+            backLink: new Link({
+                text: 'Вернуться назад',
+                attr: {
+                    href: '#'
+                },
+                events: {
+                    click: (e: Event)=>{
+                        e.preventDefault();
+                        new Router('#app').back()
+                    }
+                }
+            }),
             
         });
     }
     override render(){
-        return `{{{regForm}}}`
+        return `
+        {{#if user}}
+            <p>Вы уже зарегистрированы и вошли в систему</p>
+            {{{backLink}}}
+        {{else}}
+            {{{regForm}}}
+        {{/if}}
+        
+        `
     }
 }
 
+function mapStateToProps(state: Props){
+    return {
+        user: state.user
+    };
+}
 
-
+export default connect(Register, mapStateToProps)

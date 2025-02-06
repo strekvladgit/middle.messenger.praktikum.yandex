@@ -1,4 +1,6 @@
+import AuthController from "../../controllers/AuthController";
 import Block from "../../framework/Block";
+import Button from "../button/Button";
 
 export default class ChatHeader extends Block {
 
@@ -6,7 +8,50 @@ export default class ChatHeader extends Block {
         super('div', {
             attr:{
                 class:'chat-header'
-            }
+            },
+            buttons: [
+                new Button({
+                    attr: {
+                        class: 'chat-header__controls-button chat-header_controls_pin'
+                    },
+                    img:{
+                        alt:"Закрепленные сообщения",
+                        src:"/pin.svg",
+                    }
+                }),
+                new Button({
+                    attr: {
+                        class: 'chat-header__controls-button chat-header_controls_add_user'
+                    },
+                    img:{
+                        alt:"Добавить участника",
+                        src:"/user-plus.svg",
+                    }
+                }),
+                new Button({
+                    attr: {
+                        class: 'chat-header__controls-button chat-header_controls_notifications'
+                    },
+                    img:{
+                        alt:"Оповещения",
+                        src:"/bell.svg",
+                    }
+                }),
+                new Button({
+                    attr: {
+                        class: 'chat-header__controls-button chat-header_controls_leave'
+                    },
+                    img:{
+                        alt:"Выход",
+                        src:"/export-arrow-right.svg",
+                    },
+                    
+                    onClick: (e:Event) => {
+                        e.preventDefault();
+                        new AuthController().logout();
+                    }
+                })
+            ]
         });
     }
     override render(){
@@ -22,18 +67,9 @@ export default class ChatHeader extends Block {
                 </div>
             </div>
             <div class="chat-header__controls">
-                <button class="chat-header__controls-button chat-header_controls_pin">
-                    <img src="/pin.svg" alt="">
-                </button>
-                <button class="chat-header__controls-button chat-header_controls_add_user">
-                    <img src="/user-plus.svg" alt="">
-                </button>
-                <button class="chat-header__controls-button chat-header_controls_notifications">
-                    <img src="/bell.svg" alt="">
-                </button>
-                <button class="chat-header__controls-button chat-header_controls_leave">
-                    <img src="/export-arrow-right.svg" alt="">
-                </button>
+                {{#each buttons}}
+                    {{{this}}}
+                {{/each}}
             </div>
         `;
     }

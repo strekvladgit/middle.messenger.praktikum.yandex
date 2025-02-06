@@ -1,8 +1,17 @@
 import EventBus from "./EventBus";
 import { v4 as makeID } from "uuid";
 import Handlebars from 'handlebars';
+import isEqual from "../utils/isEqual";
 
 export type Props = Record<string | symbol, any>;
+
+export type ClassType = {
+  new(propsAndChildren: Props): Block
+};
+
+ export type Indexed<T = unknown> = {
+  [key in string]: T;
+};
 
 export default class Block {
   static EVENTS = {
@@ -41,6 +50,7 @@ export default class Block {
 
     eventBus.emit(Block.EVENTS.INIT);
     eventBus.emit(Block.EVENTS.FLOW_RENDER);
+    eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
   private _registerEvents(eventBus: EventBus) {
@@ -82,7 +92,6 @@ export default class Block {
   }
 
   private _componentDidMount() {
-    console.log('mounted '+this._id)
     this.componentDidMount();
   }
 
@@ -95,30 +104,26 @@ export default class Block {
   }
 
   private _componentDidUpdate(oldProps: Props, newProps: Props) {
-    console.log('updated '+this._id)
-    const response = this.componentDidUpdate(oldProps, newProps);
-    if(response){
+    
+    const response = isEqual(oldProps, newProps);
+    console.log(oldProps, newProps)
+    console.log(response)
+    if(!response){
       this._render();
     }
+    this.componentDidUpdate();
   }
 
   // Может переопределять пользователь, необязательно трогать
-  protected componentDidUpdate(oldProps: Props, newProps: Props) {
-    
-    const oldP = JSON.stringify(oldProps);
-    const newP = JSON.stringify(newProps);
-    if(oldP===newP){
-      return false;
-    }
-    return true;
-  }
+  protected componentDidUpdate() {}
 
   protected setProps = (nextProps : Props) => {
+
     if (!nextProps) {
       return;
     }
 
-    Object.assign(this.props, nextProps);
+    Object.assign(this.props, nextProps);//каждое измененное свойство в nextProps будет вызывать рендер и апдейт :(
   };
 
   get element() {
@@ -208,8 +213,6 @@ export default class Block {
   }
   private _render() {
     const block = this.compile(this.render(), this.props);
-    console.log('----------------render-------------------')
-    console.log(block)
     this._removeEvents();
     if(this._element){
       this._element.innerHTML = '';
@@ -226,7 +229,7 @@ export default class Block {
     return '';
   }
 
-  protected getContent() {
+  public getContent() {
     return this._element;
   }
 
@@ -258,6 +261,21 @@ export default class Block {
       return document.createElement('template') as HTMLTemplateElement;
     }
     return document.createElement(tagName);
+  }
+
+  public show() {
+    const content = this.getContent();
+    if(content){
+      content.style.display = 'block'; // .display = 'block';
+    }
+      
+  }
+
+  public hide() {
+    const content = this.getContent();
+    if(content){
+      content.style.display = 'none';
+    }
   }
 
 }

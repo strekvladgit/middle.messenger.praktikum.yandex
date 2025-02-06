@@ -253,6 +253,7 @@
     &__link{
         display: flex;
         text-decoration: none;
+        cursor: pointer;
     }
 
     &__username{

@@ -6,12 +6,14 @@ import ChatMessage from "../../src/components/chatMessage/ChatMessage";
 import ProfilePanel from "../../src/components/profilePanel/ProfilePanel";
 import InputPanel from "../../src/components/inputPanel/InputPanel";
 
+import "./chat.css"
+
 export default class Chat extends Block{
     
-    constructor(props: Props){
-        const {username} = props;
+    constructor(){
+        
 
-        super('div', {...props,
+        super('div', {
             attr:{id:'chat'},
             chatHeader: new ChatHeader(),
             searchPanel: new SearchPanel(),
@@ -39,7 +41,7 @@ export default class Chat extends Block{
                 new ChatMessage({user:'MyUserName', avatar:'/default.jpg', content: 'sup', status:'my'}),
             ],
             inputPanel: new InputPanel(),
-            profilePanel: new ProfilePanel({username}),
+            profilePanel: new ProfilePanel({}),
         });
     }
     override render(){

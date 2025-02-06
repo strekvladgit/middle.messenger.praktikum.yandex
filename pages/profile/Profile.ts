@@ -1,12 +1,16 @@
-import Block from "../../src/framework/Block";
+import Block, { Props } from "../../src/framework/Block";
 import Form from "../../src/components/form/Form";
 import formField from "../../src/components/formField/formFiled";
 import Button from "../../src/components/button/Button";
 import Modal from "../../src/components/modal/Modal";
+import connect from "../../src/utils/connect";
+import Store from "../../src/framework/Store";
 
-export default class Profile extends Block{
+class Profile extends Block{
+
 
     constructor(){
+
         super('div', {
             attr: {class: 'page'},
             
@@ -33,7 +37,7 @@ export default class Profile extends Block{
                         name:'email',  
                         type:'email', 
                         class: 'form-input form-input_profile ',
-                        value: 'pochta@pochta.ru',
+                        value: 'vasyapupkin@mail.ru',
                         errorMessage:'Email должен быть корректным и содержать "собаку" (@) и точку после неё.',
                         pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$',
                     }),
@@ -132,7 +136,9 @@ export default class Profile extends Block{
         });
         
     }
-
+    protected override componentDidUpdate(): void {
+        console.log('updated')
+    }
     private onShowModal(){
         this.setProps({
             modalClass: 'modal'
@@ -146,6 +152,7 @@ export default class Profile extends Block{
     }
 
     override render(){
+        console.log(Store.getState())
         return `{{{profileForm}}}
         <div class="{{{modalClass}}}">
             {{{modal}}} 
@@ -153,3 +160,11 @@ export default class Profile extends Block{
         `
     }
 }
+
+function mapUserToProps(state: Props) {
+    return {
+        user: state.user
+    };
+  }
+
+export default connect(Profile, mapUserToProps)

@@ -1,10 +1,15 @@
-import Block from "../../src/framework/Block";
+import Block, { Props } from "../../src/framework/Block";
 import Form from "../../src/components/form/Form";
 import formField from "../../src/components/formField/formFiled";
 import Link from "../../src/components/link/Link";
 import Button from "../../src/components/button/Button";
+import Router from "../../src/framework/Router";
+import { submitForm } from "../../src/utils/submitForm";
+import AuthController from "../../src/controllers/AuthController";
+import { DataType } from "../../src/utils/HTTPTransport";
+import connect from "../../src/utils/connect";
 
-export default class Login extends Block{
+class Login extends Block{
     constructor(){
         super('div', {
             attr: {class: 'page'},
@@ -34,17 +39,59 @@ export default class Login extends Block{
                         pattern: '^(?=.*[A-Z])(?=.*d)[A-Za-zd]{8,40}$',
                     })
                 ],
-                button: new Button({text:'Войти', attr:{class: 'form-button'}}),
-                link: new Link({text:'Зарегистрироваться', attr:{class: 'form-link', href:'#'}})
+                button: new Button({
+                    text:'Войти', 
+                    attr:{class: 'form-button'},
+                    
+                }),
+                link: new Link({
+                    text:'Зарегистрироваться', 
+                    attr:{class: 'form-link', href:'#'},
+                    events: {
+                        click: (e: Event)=>{
+                            e.preventDefault();
+                            new Router('#app').go('/sign-up');
+                        }
+                    }
+                }),
+                events: {
+                    submit: (e: Event)=>{submitForm(e, (data: DataType) => {new AuthController().login(data)})}
+                }
                 //<a class="form-link {{#each classes}}{{this}} {{/each}}" href="{{this.link}}" data-modal="{{modal}}">{{this.text}}</a>
-            })
+            }),
+            backLink: new Link({
+                text: 'Вернуться назад',
+                attr: {
+                    href: '#'
+                },
+                events: {
+                    click: (e: Event)=>{
+                        e.preventDefault();
+                        new Router('#app').back()
+                    }
+                }
+            }),
             
         });
     }
     override render(){
-        return `{{{loginForm}}}`
+        return `
+            {{#if user}}
+                <p>Вы уже зарегистрированы и вошли в систему</p>
+                {{{backLink}}}
+            {{else}}
+                {{{loginForm}}}
+            {{/if}}
+        `
     }
 }
 
+function mapStateToProps(state: Props){
+    return {
+        user: state.user
+    };
+}
+
+export default connect(Login, mapStateToProps)
 
 

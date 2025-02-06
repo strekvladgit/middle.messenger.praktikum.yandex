@@ -15,7 +15,7 @@ export default class Input extends Block {
                         const isValid = this.validate(value, pattern)
                         if(onBlur){
                             onBlur(isValid);
-                            console.log(isValid)
+                            
                         }
                     }
                 },
