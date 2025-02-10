@@ -1,14 +1,17 @@
 import AuthController from "../../controllers/AuthController";
-import Block from "../../framework/Block";
+import Block, { Props } from "../../framework/Block";
+import connect from "../../utils/connect";
 import Button from "../button/Button";
+import ChatAvatar from "../chatAvatar/ChatAvatar";
 
-export default class ChatHeader extends Block {
+class ChatHeader extends Block {
 
     constructor(){
         super('div', {
             attr:{
                 class:'chat-header'
             },
+            chatAvatar: new ChatAvatar({}),
             buttons: [
                 new Button({
                     attr: {
@@ -48,22 +51,22 @@ export default class ChatHeader extends Block {
                     
                     onClick: (e:Event) => {
                         e.preventDefault();
-                        new AuthController().logout();
+                        AuthController.logout();
                     }
                 })
             ]
         });
     }
+
+    protected componentDidUpdate(): void {
+        console.log(this.props.title)
+    }
     override render(){
         return `
             <div class="chat-header__title">
-                <div class="chat-listitem__image">
-                    <img src="/exmplAva.jpg" alt="">
-                    <img src="/exmplAva2.jpg" alt="">
-                </div>
+                {{{chatAvatar}}}
                 <div class="chat-listitem__name">
-                    <span>user2</span>&nbsp;
-                    <span>user1</span>&nbsp;
+                    {{title}}
                 </div>
             </div>
             <div class="chat-header__controls">
@@ -75,3 +78,12 @@ export default class ChatHeader extends Block {
     }
     
 }
+
+function mapChatinfoToProps(state: Props){
+    return {
+        avatar: state.currentChat?.avatar,
+        title: state.currentChat?.title
+    }
+}
+
+export default connect(ChatHeader, mapChatinfoToProps);

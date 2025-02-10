@@ -4,10 +4,11 @@ import formField from "../../src/components/formField/formFiled";
 import Link from "../../src/components/link/Link";
 import Button from "../../src/components/button/Button";
 import Router from "../../src/framework/Router";
-import { submitForm } from "../../src/utils/submitForm";
+import submitForm from "../../src/utils/submitForm";
 import AuthController from "../../src/controllers/AuthController";
 import { DataType } from "../../src/utils/HTTPTransport";
 import connect from "../../src/utils/connect";
+import Input from "../../src/components/input/Input";
 
 class Login extends Block{
     constructor(){
@@ -22,21 +23,29 @@ class Login extends Block{
                 formFields: [
                     new formField({
                         attr: {class: 'form-input-wrap'}, 
-                        text:'Логин', 
-                        name:'login',  
-                        type:'text', 
-                        class: 'form-input',
+                        text:'Логин',
                         errorMessage:'Логин должен содержать от 3 до 20 символов, может включать буквы и цифры, но не состоять только из цифр. Без пробелов и спецсимволов.',
-                        pattern: '^(?=.{3,20}$)(?![0-9]*$)[a-zA-Z0-9-_]+$',
+                        input: new Input({
+                            pattern: '^(?=.{3,20}$)(?![0-9]*$)[a-zA-Z0-9-_]+$',
+                            attr:{
+                                name:'login',  
+                                type:'text', 
+                                class: 'form-input',
+                            }
+                        })
                     }),
                     new formField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Пароль', 
-                        name:'password', 
-                        type:'password', 
-                        class: 'form-input',
                         errorMessage:'Пароль должен содержать от 8 до 40 символов, обязательно хотя бы одну заглавную букву и цифру.',
-                        pattern: '^(?=.*[A-Z])(?=.*d)[A-Za-zd]{8,40}$',
+                        input: new Input({
+                            pattern: '^(?=.*[A-Z])(?=.*d)[A-Za-zd]{8,40}$',
+                            attr: {
+                                name:'password', 
+                                type:'password', 
+                                class: 'form-input',
+                            }
+                        })
                     })
                 ],
                 button: new Button({
@@ -55,7 +64,7 @@ class Login extends Block{
                     }
                 }),
                 events: {
-                    submit: (e: Event)=>{submitForm(e, (data: DataType) => {new AuthController().login(data)})}
+                    submit: (e: Event)=>{submitForm(e, (data: DataType) => {AuthController.login(data)})}
                 }
                 //<a class="form-link {{#each classes}}{{this}} {{/each}}" href="{{this.link}}" data-modal="{{modal}}">{{this.text}}</a>
             }),

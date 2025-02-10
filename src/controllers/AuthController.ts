@@ -3,23 +3,19 @@ import Router from "../framework/Router";
 import Store from "../framework/Store";
 import { DataType } from "../utils/HTTPTransport";
 
-
-
-export default class AuthController{
-
-    private authAPI : AuthAPI = new AuthAPI();
+class AuthController{
 
     public create(data: DataType){
-        this.authAPI.create(data)
-            .then((response)=>{
-                Store.set('user', response);
+        AuthAPI.create(data)
+            .then((data)=>{
+                Store.set('user', data);
                 new Router('#app').go('/messenger');
             })
             
     }
 
     public login(data: DataType){
-        this.authAPI.login(data)
+        AuthAPI.login(data)
             .then(()=>{
                 return this.getSelf()
             })
@@ -30,14 +26,18 @@ export default class AuthController{
     }
 
     public getSelf(){
-        return this.authAPI.getUser().then((data)=>data);
+        return AuthAPI.getUser().then((data)=>data)
+            .then(data=>{Store.set('user', data); return data})
+            .catch((error)=>{console.log(error)});;
     }
 
     public logout(){
-        this.authAPI.logout().then(()=>{
+        AuthAPI.logout().then(()=>{
             Store.set('user', null);
             new Router('#app').go('/login');
         });
     }
    
 }
+
+export default new AuthController();

@@ -21,20 +21,25 @@ class ProfilePanel extends Block {
             }
         );
     }
-    protected override componentDidMount(): void {
-        console.log('mounted')
-    }
-    protected override componentDidUpdate(): void{
-        console.log('updated')
-    }
+    
     override render(){
         return `
             <div class="profile-panel__link">
                 <div class="profile-panel__avatar">
-                <img src="/default.jpg" alt="">
+                {{#if avatar}}
+                    <img src="https://ya-praktikum.tech/api/v2/resources{{avatar}}" alt="">
+                {{else}}
+                    <img src="/default.jpg" alt="">
+                {{/if}}
+                
                 </div>
                 <div class="profile-panel__username">
-                {{name}} {{surname}}.
+                {{#if displayName}}
+                    {{displayName}}
+                {{else}}
+                    {{name}} {{surname}}.
+                {{/if}}
+                
                 <div class="profile-panel__status">статус тут</div>
                 </div>
             </div>
@@ -47,6 +52,8 @@ function mapUserToProps(state: Props) {
     return {
         name: state.user?.first_name,
         surname: state.user?.second_name,
+        displayName: state.user?.display_name,
+        avatar: state.user?.avatar
     };
   }
 

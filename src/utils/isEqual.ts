@@ -1,3 +1,5 @@
+import Block from "../framework/Block";
+
 export default function isEqual(a: object, b: object){
 
     const arrA = a ? Object.entries(a) : null;

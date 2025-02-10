@@ -3,7 +3,7 @@ interface FormValues {
     [key: string]: string | File | null;
 }
 
-export const submitForm = (e:Event, callback: (data: DataType) => void) => {
+export default function submitForm (e:Event, callback: (data: DataType) => void) {
     e.preventDefault();
     const {target} = e;
     if (target instanceof HTMLFormElement) {

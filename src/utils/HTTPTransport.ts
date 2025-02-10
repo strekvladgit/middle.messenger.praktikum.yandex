@@ -5,20 +5,19 @@ const METHODS = {
     DELETE: 'DELETE',
 };
   
-export type DataType = Record<string, string>
-
+export type DataType = Record<string, string>;
   
 export type Options = {
     method?: string,
     headers?: [string, string],
-    data?: DataType,
+    data?: DataType | FormData,
     timeout?: number,
     retries?: number,
 }
   
 type HTTPMethod = (url: string, options: Options) => Promise<unknown>;
 
-function queryStringify(data: Record<string, string>): string {
+function queryStringify(data: DataType | FormData): string {
     let result = '?';
 
     Object.entries(data).forEach(([key, value])=>{
@@ -35,7 +34,10 @@ export default class HTTPTransport {
         const { data } = options;
 
         if (data) {
-            resUrl = queryStringify(data);
+            if(!(data instanceof FormData)){
+                resUrl = queryStringify(data);
+            }
+            
         }
 
         return this.request(`${this.baseURL}${resUrl}`, { ...options, method: METHODS.GET });
@@ -77,6 +79,7 @@ export default class HTTPTransport {
 
             if (data instanceof FormData) {
                 xhr.setRequestHeader('Accept', 'application/json');
+
             } else {
                 xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
             }
@@ -89,8 +92,9 @@ export default class HTTPTransport {
 
             if (method === METHODS.GET) {
                 xhr.send();
+            } else if (data instanceof FormData) {
+                xhr.send(data)
             } else {
-                console.log(JSON.stringify(data))
                 xhr.send(JSON.stringify(data));
             }
 

@@ -1,49 +1,106 @@
-import Block, { Props } from "../../src/framework/Block";
+import Block from "../../src/framework/Block";
 import ChatHeader from "../../src/components/chatHeader/ChatHeader";
 import SearchPanel from "../../src/components/searchPanel/searchPanel";
-import ChatItem from "../../src/components/chatItem/ChatItem";
 import ChatMessage from "../../src/components/chatMessage/ChatMessage";
 import ProfilePanel from "../../src/components/profilePanel/ProfilePanel";
 import InputPanel from "../../src/components/inputPanel/InputPanel";
+import Button from "../../src/components/button/Button";
+import Modal from "../../src/components/modal/Modal";
+import Form from "../../src/components/form/Form";
+import formFiled from "../../src/components/formField/formFiled";
+import Input from "../../src/components/input/Input";
+import ChatList from "../../src/components/chatList/ChatList";
+import submitForm from "../../src/utils/submitForm";
+import { DataType } from "../../src/utils/HTTPTransport";
+import ChatController from "../../src/controllers/ChatController";
+import ChatsPanel from "../../src/components/chatsPanel/ChatsPanel";
 
 import "./chat.css"
+
+
 
 export default class Chat extends Block{
     
     constructor(){
+
         
 
         super('div', {
             attr:{id:'chat'},
+            modalClass:'modal',
             chatHeader: new ChatHeader(),
             searchPanel: new SearchPanel(),
-            chatlist: [
-                new ChatItem({name: '', users: [{name:'user1', avatar:'/exmplAva.jpg'}], selected:''}),
-                new ChatItem({name: '', 
-                    users: [
-                        {name:'user2', avatar:'/exmplAva.jpg',},
-                        {name:'user1', avatar:'/exmplAva2.jpg',}
-                    ], 
-                    selected:''
+            chatPanel: new ChatsPanel({
+                chatList: new ChatList({
+                    attr: {class: 'chat-list'},
+                    chats: [],
+
+                }),                
+                btnCreateChat: new Button({
+                    text: 'создать чат',
+                    attr: {class: 'chat-list-button'},
+                    onClick : () => {this.onShowModal()}
                 }),
-          
-                new ChatItem({name: 'Some Chat Name', 
-                    users: [
-                        {name:'user1', avatar:'/exmplAva2.jpg',},
-                        {name:'user2', avatar:'/exmplAva.jpg',}
-                    ], 
-                    selected:'true'
-                }),
-            ],
+            }),
             messages: [
                 new ChatMessage({user:'user1', avatar:'/exmplAva2.jpg', content: 'Hello', }),
-                new ChatMessage({user:'user2', avatar:'/exmplAva.jpg', content: '', imgs: ['/content1.jpg'] }),
+                new ChatMessage({user:'user2', avatar:'/exmplAva.jpg', content: '', imgs: ['/default.jpg'] }),
                 new ChatMessage({user:'MyUserName', avatar:'/default.jpg', content: 'sup', status:'my'}),
             ],
             inputPanel: new InputPanel(),
             profilePanel: new ProfilePanel({}),
+            
+            modalCreateChat: new Modal({
+                attr: {class: 'modal hidden'},
+                form: new Form({
+                    title: 'Создать чат',
+                    attr:{
+                        class:'form',
+                        method: 'POST'
+                    },
+                    formFields: [new formFiled({
+                        attr: {class: 'form-input-wrap'}, 
+                        text:'Название чата',
+                        input: new Input({
+                            pattern: '',
+                            attr: {
+                                name:'title',  
+                                type:'text', 
+                                class: 'form-input ',
+                            }
+                        })
+                    })],
+                    button: new Button({
+                        text: 'Создать',
+                        attr:{class:'form-button '},
+                    }),
+                    events: {
+                        submit: (e: Event)=>{
+                            submitForm(e, (data: DataType) => {
+                                ChatController.createChat(data)
+                                    .then(()=>{this.onHideModal()})
+                            })
+                        }
+                    }
+                }),
+                onClick: ()=>{this.onHideModal()},
+                
+            })
         });
     }
+
+    private onShowModal(){
+        this.children.modalCreateChat.setProps({
+            attr: { class: 'modal'}
+        })
+    }
+
+    private onHideModal(){
+        this.children.modalCreateChat.setProps({
+            attr: { class: 'modal hidden' }
+        })
+    }
+
     override render(){
         return `
         <div class="logo">#BEZDISCORD</div>
@@ -51,12 +108,8 @@ export default class Chat extends Block{
         {{{chatHeader}}}
         {{{searchPanel}}}
 
-
-        <div class="chat-list">
-            {{#each chatlist}}
-                {{{this}}}
-            {{/each}}
-        </div>
+        {{{chatPanel}}}
+        
 
 
         <div class="chat-content">
@@ -87,9 +140,7 @@ export default class Chat extends Block{
 
 
         {{{inputPanel}}}
+        {{{modalCreateChat}}}
         `
     }
 }
-
-
-

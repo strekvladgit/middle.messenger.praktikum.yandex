@@ -2,6 +2,7 @@ import EventBus from "./EventBus";
 import { v4 as makeID } from "uuid";
 import Handlebars from 'handlebars';
 import isEqual from "../utils/isEqual";
+import cloneDeep from "../utils/cloneDeep";
 
 export type Props = Record<string | symbol, any>;
 
@@ -104,26 +105,27 @@ export default class Block {
   }
 
   private _componentDidUpdate(oldProps: Props, newProps: Props) {
-    
     const response = isEqual(oldProps, newProps);
-    console.log(oldProps, newProps)
-    console.log(response)
     if(!response){
       this._render();
+      this.componentDidUpdate();
     }
-    this.componentDidUpdate();
   }
 
   // Может переопределять пользователь, необязательно трогать
   protected componentDidUpdate() {}
 
-  protected setProps = (nextProps : Props) => {
+  public setProps = (nextProps : Props) => {
 
     if (!nextProps) {
       return;
     }
 
-    Object.assign(this.props, nextProps);//каждое измененное свойство в nextProps будет вызывать рендер и апдейт :(
+    const {lists, children}  = this._getChildren(nextProps);
+    Object.assign(this.lists, lists);
+    Object.assign(this.children, children);
+    console.log(nextProps, this)
+    Object.assign(this.props, nextProps);
   };
 
   get element() {
@@ -240,12 +242,11 @@ export default class Block {
 
     return new Proxy(props, {
       get(target, prop){
-        
         const value = target[prop];
         return typeof value === "function" ? value.bind(target) : value;
       },
       set(target, prop, value){
-        const oldTarget = {...target};
+        const oldTarget = cloneDeep(target);
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;

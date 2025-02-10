@@ -2,7 +2,7 @@ import HTTPTransport, { Options, DataType } from "../utils/HTTPTransport";
 
 const baseAPI = new HTTPTransport();
 
-export default class AuthAPI {
+class AuthAPI {
     public create(data: DataType) {
         return baseAPI.post('auth/signup', {data} as Options)
     }
@@ -19,3 +19,5 @@ export default class AuthAPI {
         return baseAPI.get('auth/user', {})
     }
 }
+
+export default new AuthAPI();

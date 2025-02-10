@@ -5,9 +5,10 @@ import Link from "../../src/components/link/Link";
 import Button from "../../src/components/button/Button";
 import Router from "../../src/framework/Router";
 import AuthController from "../../src/controllers/AuthController";
-import { submitForm } from "../../src/utils/submitForm";
+import submitForm from "../../src/utils/submitForm";
 import { DataType } from "../../src/utils/HTTPTransport";
 import connect from "../../src/utils/connect";
+import Input from "../../src/components/input/Input";
 
 
 
@@ -26,65 +27,94 @@ class Register extends Block{
                     new formField({
                         attr: {class: 'form-input-wrap'},
                         text:'Почта',
-                        name:'email',  
-                        type:'email', 
-                        class: 'form-input',
                         errorMessage:'Email должен быть корректным и содержать "собаку" (@) и точку после неё.',
-                        pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$',
+                        input: new Input({
+                            pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$',
+                            attr:{
+                                name:'email',  
+                                type:'email', 
+                                class: 'form-input',
+                            }
+                        })
                     }),
                     new formField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Логин', 
-                        name:'login',  
-                        type:'text', 
-                        class: 'form-input',
                         errorMessage:'Логин должен содержать от 3 до 20 символов, может включать буквы и цифры, но не состоять только из цифр. Без пробелов и спецсимволов.',
-                        pattern: '^(?=.{3,20}$)(?![0-9]*$)[a-zA-Z0-9-_]+$',
+                        input: new Input({
+                            pattern: '^(?=.{3,20}$)(?![0-9]*$)[a-zA-Z0-9-_]+$',
+                            attr: {
+                                name:'login',  
+                                type:'text', 
+                                class: 'form-input',
+                            }
+                        })
                     }),
                     new formField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Имя', 
-                        name:'first_name', 
-                        type:'text', 
-                        class: 'form-input',
                         errorMessage:'Имя должно начинаться с заглавной буквы, содержать только буквы, без пробелов и цифр, допускается дефис.',
-                        pattern: '^[A-ZА-ЯЁ][a-zа-яёA-ZА-ЯЁ0-9-]*$',
+                        input: new Input({
+                            pattern: '^[A-ZА-ЯЁ][a-zа-яёA-ZА-ЯЁ0-9-]*$',
+                            attr:{
+                                name:'first_name', 
+                                type:'text', 
+                                class: 'form-input',
+                            }
+                        })
                     }),
                     new formField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Фамилия', 
-                        name:'second_name', 
-                        type:'text', 
-                        class: 'form-input',
                         errorMessage:'Имя должно начинаться с заглавной буквы, содержать только буквы, без пробелов и цифр, допускается дефис.',
-                        pattern: '^[A-ZА-ЯЁ][a-zа-яёA-ZА-ЯЁ0-9-]*$',
+                        input: new Input({
+                            pattern: '^[A-ZА-ЯЁ][a-zа-яёA-ZА-ЯЁ0-9-]*$',
+                            attr: {
+                                name:'second_name', 
+                                type:'text', 
+                                class: 'form-input',
+                            }
+                        })
                     }),
                     new formField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Телефон', 
-                        name:'phone',  
-                        type:'tel', 
-                        class: 'form-input',
                         errorMessage:'Телефон должен содержать от 10 до 15 символов и состоять только из цифр, может начинаться с плюса.',
-                        pattern: '^+?d{10,15}$',
+                        input: new Input({
+                            pattern: '^+?d{10,15}$',
+                            attr: {
+                                name:'phone',  
+                                type:'tel', 
+                                class: 'form-input',
+                            }
+                        })
                     }),
                     new formField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Пароль', 
-                        name:'password', 
-                        type:'password', 
-                        class: 'form-input',
                         errorMessage:'Пароль должен содержать от 8 до 40 символов, обязательно хотя бы одну заглавную букву и цифру.',
-                        pattern: '^(?=.*[A-Z])(?=.*d)[A-Za-zd]{8,40}$',
+                        input: new Input({
+                            pattern: '^(?=.*[A-Z])(?=.*d)[A-Za-zd]{8,40}$',
+                            attr: {
+                                name:'password', 
+                                type:'password', 
+                                class: 'form-input',
+                            }
+
+                        })
                     }),
                     new formField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Повторите пароль', 
-                        name:'password-2', 
-                        type:'password', 
-                        class: 'form-input',
                         errorMessage:'Пароль должен содержать от 8 до 40 символов, обязательно хотя бы одну заглавную букву и цифру.',
-                        pattern: '^(?=.*[A-Z])(?=.*d)[A-Za-zd]{8,40}$',
+                        input: new Input({
+                            pattern: '^(?=.*[A-Z])(?=.*d)[A-Za-zd]{8,40}$',
+                            attr:{
+                                name:'password-2', 
+                                type:'password', 
+                                class: 'form-input',
+                            }
+                        })
                     })
                 ],
                 button: new Button({text:'Зарегистрироваться', attr:{class: 'form-button'}}),
@@ -96,7 +126,6 @@ class Register extends Block{
                             click: (e: Event) => {
                                 e.preventDefault();
                                 new Router('#app').go('/login')
-                                // new AuthController().logout();
                             }
                         }
                     }),
@@ -107,14 +136,14 @@ class Register extends Block{
                             click: (e: Event) => {
                                 e.preventDefault();
                                 
-                                new AuthController().logout();
+                                AuthController.logout();
                             }
                         }
                     }),
                 ],
                 
                 events: {
-                    submit: (e: Event)=>{submitForm(e, (data: DataType) => new AuthController().create(data))}
+                    submit: (e: Event)=>{submitForm(e, (data: DataType) => AuthController.create(data))}
                 }
                 
                 //<a class="form-link {{#each classes}}{{this}} {{/each}}" href="{{this.link}}" data-modal="{{modal}}">{{this.text}}</a>

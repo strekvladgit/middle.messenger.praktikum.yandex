@@ -21,6 +21,18 @@
 
 .chat-list{
     border-right:1px solid var(--light-blue);
+
+    &-button{
+        width:100%;
+        background:rgb(0 0 0 / 5%);
+        text-align: center;
+        cursor: pointer;
+        padding:10px;
+
+        &:hover{
+            background:rgb(0 0 0 / 10%);
+        }
+    }
 }
 
 .chat-listitem{
@@ -109,6 +121,10 @@
     &__title{
         display: flex;
         align-items:center;
+
+        & img{
+            cursor: pointer;
+        }
     }
 
     &__name{
