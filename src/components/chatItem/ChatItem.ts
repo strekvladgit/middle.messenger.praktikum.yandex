@@ -18,7 +18,7 @@ export default class ChatItem extends Block {
                     alt:"Удалить чат",
                     src:"/x-close-delete.svg",
                 },
-                onClick: () => {ChatController.deleteChat({chatId})}
+                onClick: () => {ChatController.deleteChat({chatId});}
             }),
             chatAvatar: new ChatAvatar({avatar: props.avatar, title: props.title}),
             events: {
@@ -26,7 +26,7 @@ export default class ChatItem extends Block {
                     const target = e.target as HTMLElement;
                     if(target&&!target.classList.contains('chat-listitem__button_delete')){
                         Store.set('currentChat', {...props})
-                        console.log(Store.getState())
+                        ChatController.getChatUsers(chatId)
                     }
                 }
             }

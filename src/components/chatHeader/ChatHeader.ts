@@ -6,12 +6,21 @@ import ChatAvatar from "../chatAvatar/ChatAvatar";
 
 class ChatHeader extends Block {
 
-    constructor(){
+    constructor(props: Props){
+        const {onModalChatsAvatarShow, modalSearchAndAddUserShow} = props;
         super('div', {
             attr:{
                 class:'chat-header'
             },
-            chatAvatar: new ChatAvatar({}),
+            chatAvatar: new ChatAvatar({
+                events: {
+                    click : ()=>{
+                        if(this.props.title){
+                            onModalChatsAvatarShow()
+                        }
+                    }
+                }
+            }),
             buttons: [
                 new Button({
                     attr: {
@@ -29,7 +38,13 @@ class ChatHeader extends Block {
                     img:{
                         alt:"Добавить участника",
                         src:"/user-plus.svg",
-                    }
+                    },
+                    onClick: (e: Event)=>{
+                            e.preventDefault();
+                            console.log(1)
+                            modalSearchAndAddUserShow();
+                        }
+                    
                 }),
                 new Button({
                     attr: {
@@ -59,10 +74,14 @@ class ChatHeader extends Block {
     }
 
     protected componentDidUpdate(): void {
-        console.log(this.props.title)
+        this.children.chatAvatar.setProps({
+            avatar: this.props.avatar,
+        })
     }
+
     override render(){
         return `
+            {{#if title}}
             <div class="chat-header__title">
                 {{{chatAvatar}}}
                 <div class="chat-listitem__name">
@@ -74,6 +93,7 @@ class ChatHeader extends Block {
                     {{{this}}}
                 {{/each}}
             </div>
+            {{/if}}
         `;
     }
     

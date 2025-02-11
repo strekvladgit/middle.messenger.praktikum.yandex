@@ -26,8 +26,7 @@ export default class Modal extends Block {
     override render(){
         return `
             <div class="modal-overlay">
-                {{{form}}}  
-                
+                {{{form}}}
             </div>
         `;
     }

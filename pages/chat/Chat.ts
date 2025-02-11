@@ -1,4 +1,4 @@
-import Block from "../../src/framework/Block";
+import Block, { Props } from "../../src/framework/Block";
 import ChatHeader from "../../src/components/chatHeader/ChatHeader";
 import SearchPanel from "../../src/components/searchPanel/searchPanel";
 import ChatMessage from "../../src/components/chatMessage/ChatMessage";
@@ -16,6 +16,10 @@ import ChatController from "../../src/controllers/ChatController";
 import ChatsPanel from "../../src/components/chatsPanel/ChatsPanel";
 
 import "./chat.css"
+import Store from "../../src/framework/Store";
+import ChatsAvatarField from "../../src/components/chatsAvatarField/ChatsAvatarField";
+import Multipanel from "../../src/components/multipanel/Multipanel";
+import UserList from "../../src/components/userList/UserList";
 
 
 
@@ -28,7 +32,9 @@ export default class Chat extends Block{
         super('div', {
             attr:{id:'chat'},
             modalClass:'modal',
-            chatHeader: new ChatHeader(),
+            chatHeader: new ChatHeader({
+                onModalChatsAvatarShow: ()=>{this.onModalChatsAvatarShow()},
+            }),
             searchPanel: new SearchPanel(),
             chatPanel: new ChatsPanel({
                 chatList: new ChatList({
@@ -39,7 +45,7 @@ export default class Chat extends Block{
                 btnCreateChat: new Button({
                     text: 'создать чат',
                     attr: {class: 'chat-list-button'},
-                    onClick : () => {this.onShowModal()}
+                    onClick : () => {this.onModalCreateChatShow()}
                 }),
             }),
             messages: [
@@ -78,25 +84,91 @@ export default class Chat extends Block{
                         submit: (e: Event)=>{
                             submitForm(e, (data: DataType) => {
                                 ChatController.createChat(data)
-                                    .then(()=>{this.onHideModal()})
+                                    .then(()=>{this.onModalCreateChatHide()})
                             })
                         }
                     }
                 }),
-                onClick: ()=>{this.onHideModal()},
+                onClick: ()=>{this.onModalCreateChatHide()},
                 
+            }),
+            modalChatsAvatar: new Modal({
+                attr: {class: 'modal hidden'},
+                form: new Form({
+                    title: 'Изменить аватар чата',
+                    attr:{
+                        class:'form',
+                        method: 'POST'
+                    },
+                    formFields: [new ChatsAvatarField({
+                            name:'avatar',  
+                            attr: {class: 'form-input-wrap'},
+                            imgsrc: '/defaultChat.jpg',
+                            type:'file', 
+                            class: 'form-hidden',
+                            input: new Input({
+                                    attr: {
+                                        name: 'avatar',
+                                        type:'file', 
+                                        class: 'form-hidden',
+                                        accept: "image/png, image/jpeg"
+                                    },
+                                    events: {
+                                        change: (e: Event) => {
+                                            const target = e.target as HTMLInputElement;
+                                            const file = target.files ? target.files[0] : null;
+                                            if(file){
+                                                const formData = new FormData();
+                                                const chatId = (Store.getState() as Props).currentChat?.id
+                                                formData.append('avatar', file);
+                                                formData.append('chatId', chatId)
+                                                ChatController.setChatAvatar(formData)
+                                            }
+                                        }
+                                    }
+                                })     
+                        })],
+                    button: new Button({
+                        text: 'Закрыть',
+                        attr:{class:'form-button '},
+                        onClick: (e: Event)=>{e.preventDefault(); this.onModalChatsAvatarHide()},
+                    }),
+                    
+                }),
+                onClick: ()=>{this.onModalChatsAvatarHide()},
+                
+            }),
+            multipanel: new Multipanel({
+                attr:{
+                    class: 'multipanel'
+                },
+                userList: new UserList(),
+                searchResult: new UserList(),
             })
+            
         });
     }
 
-    private onShowModal(){
+    private onModalCreateChatShow(){
         this.children.modalCreateChat.setProps({
             attr: { class: 'modal'}
         })
     }
 
-    private onHideModal(){
+    private onModalCreateChatHide(){
         this.children.modalCreateChat.setProps({
+            attr: { class: 'modal hidden' }
+        })
+    }
+
+    private onModalChatsAvatarShow(){
+        this.children.modalChatsAvatar.setProps({
+            attr: { class: 'modal'}
+        })
+    }
+
+    private onModalChatsAvatarHide(){
+        this.children.modalChatsAvatar.setProps({
             attr: { class: 'modal hidden' }
         })
     }
@@ -119,21 +191,7 @@ export default class Chat extends Block{
         </div>
 
 
-        <div class="multipanel">
-            <div class="multipanel-search-title">Ищем "lorem ipsum"</div>
-                <div class="multipanel-search-result">
-                    <div class="message ">
-                    <div class="message-avatar">
-                        <img src="/exmplAva2.jpg" alt="">
-                    </div>
-                    <div class="message-content">
-                        <div class="message-content__user-name">user1</div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        <span class="message-content__time">11:00</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{{multipanel}}}
 
 
         {{{profilePanel}}}
@@ -141,6 +199,8 @@ export default class Chat extends Block{
 
         {{{inputPanel}}}
         {{{modalCreateChat}}}
+        {{{modalChatsAvatar}}}
+        {{{modalSearchAndAddUser}}}
         `
     }
 }

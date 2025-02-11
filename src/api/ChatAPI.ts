@@ -24,8 +24,17 @@ class ChatAPI {
     public addUser(data : DataType){
         return baseAPI.put('chats/users', {data} as Options)
     }
+
+    public deleteUser(data : DataType){
+        return baseAPI.delete('chats/users', {data} as Options)
+    }
+
     public setChatAvatar(data : FormData){
         return baseAPI.put('chats/avatar', {data} as Options)
+    }
+
+    public getChatUsers(chatID : number){
+        return baseAPI.get(`chats/${chatID}/users`, {})
     }
 }
 

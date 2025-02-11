@@ -5,7 +5,7 @@ const METHODS = {
     DELETE: 'DELETE',
 };
   
-export type DataType = Record<string, string>;
+export type DataType = Record<string, string | string[] | number>;
   
 export type Options = {
     method?: string,

@@ -124,7 +124,6 @@ export default class Block {
     const {lists, children}  = this._getChildren(nextProps);
     Object.assign(this.lists, lists);
     Object.assign(this.children, children);
-    console.log(nextProps, this)
     Object.assign(this.props, nextProps);
   };
 

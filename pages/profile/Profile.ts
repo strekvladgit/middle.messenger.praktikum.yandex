@@ -10,6 +10,7 @@ import { DataType } from "../../src/utils/HTTPTransport";
 import UserController from "../../src/controllers/UserController";
 import AvatarField from "../../src/components/avatarField/AvatarField";
 import Store from "../../src/framework/Store";
+import Router from "../../src/framework/Router";
 
 const inputs = {
     avatar: new Input({
@@ -26,7 +27,6 @@ const inputs = {
                 if(file){
                     const formData = new FormData();
                     formData.append('avatar', file);
-                    console.log(formData.get('avatar'))
                     UserController.setAvatar(formData)
                 }
             }
@@ -157,7 +157,7 @@ class Profile extends Block{
                 buttons:[ 
                     new Button({text:'Изменить данные', attr:{class: 'form-button form-button_edit'}}),
                     new Button({text:'Изменить пароль', attr:{class: 'form-link form-button_change-pass'}, onClick: (e:Event)=>{e.preventDefault();this.onShowModal()} } ),
-                    new Button({text:'Выйти', attr:{class: 'form-link'}})
+                    new Button({text:'Выйти', attr:{class: 'form-link'}, onClick: (e:Event)=>{e.preventDefault();new Router('#app').go('/messenger')}})
                 ],
                 events: {
                     submit: (e: Event)=>{submitForm(e, (data: DataType) => {UserController.patchProfile(data)})}

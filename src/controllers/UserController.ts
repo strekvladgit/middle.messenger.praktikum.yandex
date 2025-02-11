@@ -23,8 +23,17 @@ class UserController{
                 Store.set('user.avatar', avatar);
             })
     }
+
     public changePassword(data: DataType){
         return UserAPI.password(data)
+    }
+
+    public searchUser(data: DataType){
+        UserAPI.search(data)
+            .then((data)=>{
+                console.log(data);
+                Store.set('userFound', data)
+            })
     }
 }
 

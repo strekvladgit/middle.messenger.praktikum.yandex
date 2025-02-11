@@ -15,9 +15,6 @@ export default function connect(Component: new (props: Props) => Block, mapState
                 const newState = mapStateToProps(Store.getState());
 
                 if (!isEqual(state, newState)) {
-                    console.log('component: ', Component)
-                    console.log(state, newState)
-                    console.log(Store.getState())
                     this.setProps({ ...newState });
                 }
                 

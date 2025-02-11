@@ -1,16 +1,9 @@
 import Block, { Props } from "../../framework/Block";
 import Store from "../../framework/Store";
 import connect from "../../utils/connect";
+import { createList } from "../../utils/createListFromProps";
 import ChatItem from "../chatItem/ChatItem";
 
-function createChatItems(chatsProps: Props){
-    if(Array.isArray(chatsProps)){
-        return chatsProps.map((props: Props)=>{
-            return new ChatItem(props)
-        })
-    }
-    return [];
-}
 
 class ChatsPanel extends Block{
     constructor(props: Props) {
@@ -22,14 +15,14 @@ class ChatsPanel extends Block{
         const {chats} = Store.getState()
         console.log('mounted ChatsPanel', chats)
         this.children.chatList.setProps({
-            chats: createChatItems(chats as Props)
+            chats: createList(chats as Props, ChatItem)
         })
     }
 
     protected componentDidUpdate(): void {
         console.log('updated ChatsPanel', this.props.chats)
         this.children.chatList.setProps({
-            chats: createChatItems(this.props.chats)
+            chats: createList(this.props.chats, ChatItem)
         })
     }
 
