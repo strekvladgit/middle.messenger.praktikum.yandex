@@ -342,6 +342,7 @@
         font-style: italic;
         opacity: 0.6;
     }
+
     &-user{
         padding:10px;
         width:100%;
@@ -367,12 +368,14 @@
                 object-fit: contain;
             }
         }
+
         &__name{
             font-size: 18px;
             font-weight: 500;
             color: var(--dark-blue);
             padding-left:10px;
         }
+
         & button{
             opacity: 0;
             transition: 0.2s all;
