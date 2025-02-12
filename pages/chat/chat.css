@@ -323,9 +323,11 @@
         transform: translateY(-50%);
         opacity: 0.5;
         transition: 0.3s opacity;
+
         & img{
             width:30px;
         }
+
         &:hover{
             opacity: 1;
         }
