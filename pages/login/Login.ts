@@ -10,8 +10,10 @@ import { DataType } from "../../src/utils/HTTPTransport";
 import connect from "../../src/utils/connect";
 import Input from "../../src/components/input/Input";
 
+
 class Login extends Block{
     constructor(){
+        
         super('div', {
             attr: {class: 'page'},
             loginForm: new Form({

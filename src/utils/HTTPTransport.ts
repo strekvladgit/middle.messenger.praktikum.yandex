@@ -72,7 +72,7 @@ export default class HTTPTransport {
             
             xhr.onload = () => {
                 if(xhr.status !== 200){
-                    reject(new Error(xhr?.response?.reason))
+                    reject(xhr?.response?.reason)
                 }
                 resolve(xhr.response);
             };

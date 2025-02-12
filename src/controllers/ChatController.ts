@@ -15,6 +15,9 @@ class ChatController{
                 })
                 return data;
             })
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public async deleteChat(data : DataType){
@@ -22,12 +25,17 @@ class ChatController{
             .then(()=>{this.getChats({
                 limit:'10',
             })})
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public async getChats(data : DataType){
         return ChatAPI.getChats(data)
             .then(data=>{Store.set('chats', data); return data})
-            .catch((error)=>{console.log(error)});
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public async setChatAvatar(data: FormData){
@@ -38,16 +46,25 @@ class ChatController{
             .then(()=>{this.getChats({
                 limit:'10',
             })})
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public async addUser(data: DataType){
         ChatAPI.addUser(data)
             .then(()=>{this.getChatUsers(data.chatId as number)})
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public async deleteUser(data: DataType){
         ChatAPI.deleteUser(data)
             .then(()=>{this.getChatUsers(data.chatId as number)})
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public async getChatUsers(chatID : number){
@@ -55,6 +72,9 @@ class ChatController{
             .then((data)=>{
                 Store.set('chatUsers', data)
             })
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public async initChat(chatID : number){
@@ -68,6 +88,9 @@ class ChatController{
                 const userID = (Store.getState().user as DataType).id;
                 this.socket = new Socket({userID: +userID, chatID, token: (data as DataType).token as string}) 
             })
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public sendMessage(message : string){

@@ -4,7 +4,6 @@ import Store from "../framework/Store";
 import { DataType } from "../utils/HTTPTransport";
 
 class UserController{
-    
 
     public patchProfile(data: DataType){
         UserAPI.patch(data)
@@ -14,6 +13,9 @@ class UserController{
             .then(()=>{
                 new Router('#app').go('/messenger')
             })
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public setAvatar(data: FormData){
@@ -22,6 +24,9 @@ class UserController{
                 const {avatar} = data as DataType;
                 Store.set('user.avatar', avatar);
             })
+            .catch((error)=>{
+                alert(error);
+            });
     }
 
     public changePassword(data: DataType){
@@ -33,6 +38,9 @@ class UserController{
             .then((data)=>{
                 Store.set('userFound', data)
             })
+            .catch((error)=>{
+                alert(error);
+            });
     }
 }
 
