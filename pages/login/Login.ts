@@ -68,17 +68,17 @@ class Login extends Block{
                 events: {
                     submit: (e: Event)=>{submitForm(e, (data: DataType) => {AuthController.login(data)})}
                 }
-                //<a class="form-link {{#each classes}}{{this}} {{/each}}" href="{{this.link}}" data-modal="{{modal}}">{{this.text}}</a>
+                
             }),
             backLink: new Link({
-                text: 'Вернуться назад',
+                text: 'Вернуться в чат',
                 attr: {
                     href: '#'
                 },
                 events: {
                     click: (e: Event)=>{
                         e.preventDefault();
-                        new Router('#app').back()
+                        new Router('#app').go('/messenger')
                     }
                 }
             }),
