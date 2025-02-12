@@ -14,9 +14,8 @@ ChatController.getChats({
 
 const router = new Router("#app");
 router
-    .use('/', PagesList)
+    .use('/', Login)
     .use('/messenger', Chat)
-    .use('/login', Login)
     .use('/sign-up', Register)
     .use('/settings', Profile)
     .use('/404-not-found', Page404)

@@ -125,21 +125,10 @@ class Register extends Block{
                         events: {
                             click: (e: Event) => {
                                 e.preventDefault();
-                                new Router('#app').go('/login')
+                                new Router('#app').go('/')
                             }
                         }
-                    }),
-                    new Link({
-                        text:'TEST LOGOUT', 
-                        attr:{class: 'form-link', href:'#'},
-                        events: {
-                            click: (e: Event) => {
-                                e.preventDefault();
-                                
-                                AuthController.logout();
-                            }
-                        }
-                    }),
+                    })
                 ],
                 
                 events: {

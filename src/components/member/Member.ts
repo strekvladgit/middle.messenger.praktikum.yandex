@@ -6,8 +6,6 @@ import Button from "../button/Button";
 export default class Member extends Block{
     constructor(props: Props){
         const chatId = (Store.getState() as Props).currentChat?.id
-        console.log(props)
-        console.log(chatId)
         super('div', {...props,
             attr: {
                 class: 'multipanel-user'

@@ -7,6 +7,9 @@ class AuthController{
 
     public create(data: DataType){
         AuthAPI.create(data)
+            .then(()=>{
+                return this.getSelf()
+            })
             .then((data)=>{
                 Store.set('user', data);
                 new Router('#app').go('/messenger');
@@ -28,13 +31,13 @@ class AuthController{
     public getSelf(){
         return AuthAPI.getUser().then((data)=>data)
             .then(data=>{Store.set('user', data); return data})
-            .catch((error)=>{console.log(error)});;
+            .catch(()=>{new Router('#app').go('/')});;
     }
 
     public logout(){
         AuthAPI.logout().then(()=>{
             Store.set('user', null);
-            new Router('#app').go('/login');
+            new Router('#app').go('/');
         });
     }
    

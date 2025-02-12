@@ -1,8 +1,11 @@
 import ChatAPI from "../api/ChatAPI";
+import Socket from "../framework/Socket";
 import Store from "../framework/Store";
 import { DataType } from "../utils/HTTPTransport";
 
 class ChatController{
+
+    private socket: Socket | null = null;
 
     public async createChat(data : DataType){
         return ChatAPI.createChat(data)
@@ -52,6 +55,23 @@ class ChatController{
             .then((data)=>{
                 Store.set('chatUsers', data)
             })
+    }
+
+    public async initChat(chatID : number){
+        ChatAPI.getToken(chatID)
+            .then((data)=>{
+                if(this.socket){
+                    Store.set('messages', '')
+                    this.socket.close(1000, 'чат закрыт');
+                }
+                
+                const userID = (Store.getState().user as DataType).id;
+                this.socket = new Socket({userID: +userID, chatID, token: (data as DataType).token as string}) 
+            })
+    }
+
+    public sendMessage(message : string){
+        this.socket?.sendMessage('message', message);
     }
 
 }

@@ -36,6 +36,10 @@ class ChatAPI {
     public getChatUsers(chatID : number){
         return baseAPI.get(`chats/${chatID}/users`, {})
     }
+
+    public getToken(chatID : number){
+        return baseAPI.post(`chats/token/${chatID}`, {})
+    }
 }
 
 export default new ChatAPI();

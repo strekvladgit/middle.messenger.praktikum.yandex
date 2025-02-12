@@ -135,6 +135,8 @@
     &__controls{
         display: flex;
         align-items:center;
+        justify-content: flex-end;
+        flex-grow: 1;
     }
 
     &__controls-button{
@@ -321,7 +323,9 @@
         transform: translateY(-50%);
         opacity: 0.5;
         transition: 0.3s opacity;
-
+        & img{
+            width:30px;
+        }
         &:hover{
             opacity: 1;
         }

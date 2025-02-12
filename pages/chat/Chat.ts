@@ -20,6 +20,7 @@ import Store from "../../src/framework/Store";
 import ChatsAvatarField from "../../src/components/chatsAvatarField/ChatsAvatarField";
 import Multipanel from "../../src/components/multipanel/Multipanel";
 import UserList from "../../src/components/userList/UserList";
+import ChatContent from "../../src/components/chatContent/ChatContent";
 
 
 
@@ -55,6 +56,8 @@ export default class Chat extends Block{
             ],
             inputPanel: new InputPanel(),
             profilePanel: new ProfilePanel({}),
+
+            chatContent: new ChatContent({}),
             
             modalCreateChat: new Modal({
                 attr: {class: 'modal hidden'},
@@ -184,11 +187,7 @@ export default class Chat extends Block{
         
 
 
-        <div class="chat-content">
-            {{#each messages}}
-                {{{this}}}
-            {{/each}}
-        </div>
+        {{{chatContent}}}
 
 
         {{{multipanel}}}

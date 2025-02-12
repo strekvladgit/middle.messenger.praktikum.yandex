@@ -1,27 +1,51 @@
 import Block, { Props } from "../../framework/Block";
+import Store from "../../framework/Store";
+
+function getUserAvatar(id: number){
+    const users = Store.getState().chatUsers as Props[];
+    if(users){
+        const currentUser = users.find((item : Props)=>{
+            return item.id===id
+        })
+        return currentUser
+    }
+    return 
+}
 
 export default class ChatMessage extends Block {
 
     constructor(props: Props){
-        super('div', props);
+        const {user_id} = props;
+        const user = getUserAvatar(user_id)
+        super('div', {...props, 
+            avatar: user?.avatar,
+            displayName: user?.display_name,
+            firstName: user?.first_name,
+            secondName: user?.second_name
+        });
     }
     override render(){
         return `
             <div class="message {{#if status}}my-message{{/if}}">
-                {{#if avatar}}
+                
                 <div class="message-avatar">
-                    <img src="{{avatar}}" alt="{{user}}-avatar">
-                </div>
+                {{#if avatar}}
+                    <img src="https://ya-praktikum.tech/api/v2/resources{{avatar}}" alt="{{displayName}}-avatar">
+                {{else}}
+                    <img src="/default.jpg" alt="{{displayName}}-avatar">
                 {{/if}}
+                </div>
+                
                 <div class="message-content">
-                    <div class="message-content__user-name">{{user}}</div>
-                    <p>{{content}}</p>
-                    {{#if imgs}}
-                        {{#each imgs}}
-                            <img src="{{this}}" alt="some-generated-image-name">
-                        {{/each}}
+                    <div class="message-content__user-name">
+                    {{#if displayName}}
+                        {{displayName}}
+                    {{else}}
+                        {{firstName}} {{secondName}}
                     {{/if}}
-                    <span class="message-content__time">11:00</span>
+                    
+                    </div>
+                    <p>{{content}}</p>
                 </div>
             </div>
         `;

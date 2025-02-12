@@ -25,8 +25,9 @@ export default class ChatItem extends Block {
                 click: (e: Event)=>{
                     const target = e.target as HTMLElement;
                     if(target&&!target.classList.contains('chat-listitem__button_delete')){
-                        Store.set('currentChat', {...props})
-                        ChatController.getChatUsers(chatId)
+                        Store.set('currentChat', {...props});
+                        ChatController.getChatUsers(chatId);
+                        ChatController.initChat(chatId)
                     }
                 }
             }

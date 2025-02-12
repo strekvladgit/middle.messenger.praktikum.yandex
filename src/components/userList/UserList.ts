@@ -11,9 +11,6 @@ class UserList extends Block{
             
         })
     }
-protected componentDidUpdate(): void {
-    console.log(this.props)
-}
     override render() {
         return `
             <div class="multipanel-memberslist">

@@ -7,7 +7,7 @@ import ChatAvatar from "../chatAvatar/ChatAvatar";
 class ChatHeader extends Block {
 
     constructor(props: Props){
-        const {onModalChatsAvatarShow, modalSearchAndAddUserShow} = props;
+        const {onModalChatsAvatarShow} = props;
         super('div', {
             attr:{
                 class:'chat-header'
@@ -31,21 +31,7 @@ class ChatHeader extends Block {
                         src:"/pin.svg",
                     }
                 }),
-                new Button({
-                    attr: {
-                        class: 'chat-header__controls-button chat-header_controls_add_user'
-                    },
-                    img:{
-                        alt:"Добавить участника",
-                        src:"/user-plus.svg",
-                    },
-                    onClick: (e: Event)=>{
-                            e.preventDefault();
-                            console.log(1)
-                            modalSearchAndAddUserShow();
-                        }
-                    
-                }),
+                
                 new Button({
                     attr: {
                         class: 'chat-header__controls-button chat-header_controls_notifications'
@@ -88,12 +74,13 @@ class ChatHeader extends Block {
                     {{title}}
                 </div>
             </div>
+            {{/if}}
             <div class="chat-header__controls">
                 {{#each buttons}}
                     {{{this}}}
                 {{/each}}
             </div>
-            {{/if}}
+            
         `;
     }
     

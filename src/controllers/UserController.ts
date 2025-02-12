@@ -31,7 +31,6 @@ class UserController{
     public searchUser(data: DataType){
         UserAPI.search(data)
             .then((data)=>{
-                console.log(data);
                 Store.set('userFound', data)
             })
     }
