@@ -21,20 +21,28 @@ class ChatContent extends Block{
         this.children.messagesList.setProps({
             messages: createList(messages as Props, ChatMessage)
         })
+        this.scrollToBottom()
     }
 
     protected componentDidUpdate(): void {
+        
         console.log('updated ChatsPanel', this.props.messages)
         this.children.messagesList.setProps({
             messages: createList(this.props.messages, ChatMessage)
         })
+        this.scrollToBottom()
+    }
+
+    private scrollToBottom() {
+        if(this.element){
+            this.element.scrollTop = this.element.scrollHeight;
+        }
     }
 
     override render(){
         return `
-
             {{{messagesList}}}
-            
+            <div class="scroll-to"></div>
         `
     }
 }
