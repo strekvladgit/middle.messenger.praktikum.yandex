@@ -13,6 +13,7 @@ html {
   font-family: Roboto, sans-serif;
   color: #414141;
   background: none;
+  scroll-behavior: smooth;
 }
 
 a,
