@@ -7,7 +7,7 @@ import InputPanel from "../../src/components/inputPanel/InputPanel";
 import Button from "../../src/components/button/Button";
 import Modal from "../../src/components/modal/Modal";
 import Form from "../../src/components/form/Form";
-import formFiled from "../../src/components/formField/formFiled";
+import FormFiled from "../../src/components/formField/formFiled";
 import Input from "../../src/components/input/Input";
 import ChatList from "../../src/components/chatList/ChatList";
 import submitForm from "../../src/utils/submitForm";
@@ -38,6 +38,9 @@ export default class Chat extends Block{
             }),
             searchPanel: new SearchPanel(),
             chatPanel: new ChatsPanel({
+                attr:{
+                    class:'chat-panel'
+                },
                 chatList: new ChatList({
                     attr: {class: 'chat-list'},
                     chats: [],
@@ -67,7 +70,7 @@ export default class Chat extends Block{
                         class:'form',
                         method: 'POST'
                     },
-                    formFields: [new formFiled({
+                    formFields: [new FormFiled({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Название чата',
                         input: new Input({

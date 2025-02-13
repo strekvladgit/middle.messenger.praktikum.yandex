@@ -8,6 +8,9 @@ import MessagesList from "../messagesList/MessagesList"
 class ChatContent extends Block{
     constructor(){
         super('div', {
+            attr: {
+                class:'chat-area'
+            },
             messagesList:new MessagesList({}),
         })
     }

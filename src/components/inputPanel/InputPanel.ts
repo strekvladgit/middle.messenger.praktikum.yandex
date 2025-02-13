@@ -31,8 +31,18 @@ export default class InputPanel extends Block {
                 
                     if (messageInput) {
                         const message = messageInput.value;
-                        ChatController.sendMessage(message);
-                        messageInput.value = '';
+                        if(!message){
+                            this.setProps({
+                                isValid: false
+                            })
+                        } else {
+                            this.setProps({
+                                isValid: true
+                            })
+                            ChatController.sendMessage(message);
+                            messageInput.value = '';
+                        }
+                        
                     } else {
                         console.error("Поле 'message' не найдено");
                     }

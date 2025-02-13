@@ -1,6 +1,6 @@
 import Block, { Props } from "../../src/framework/Block";
 import Form from "../../src/components/form/Form";
-import formField from "../../src/components/formField/formFiled";
+import FormField from "../../src/components/formField/formFiled";
 import Link from "../../src/components/link/Link";
 import Button from "../../src/components/button/Button";
 import Router from "../../src/framework/Router";
@@ -23,7 +23,7 @@ class Login extends Block{
                     class: 'form'
                 },
                 formFields: [
-                    new formField({
+                    new FormField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Логин',
                         errorMessage:'Логин должен содержать от 3 до 20 символов, может включать буквы и цифры, но не состоять только из цифр. Без пробелов и спецсимволов.',
@@ -36,7 +36,7 @@ class Login extends Block{
                             }
                         })
                     }),
-                    new formField({
+                    new FormField({
                         attr: {class: 'form-input-wrap'}, 
                         text:'Пароль', 
                         errorMessage:'Пароль должен содержать от 8 до 40 символов, обязательно хотя бы одну заглавную букву и цифру.',

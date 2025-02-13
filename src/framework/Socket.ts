@@ -47,10 +47,10 @@ export default class Socket{
         this.socket.addEventListener('message', (e: MessageEvent) => {
             const data = JSON.parse(e.data);
             if (data.type !== 'user connected' && data.type !== 'pong') {
-                const messages = (Store.getState() as Props).messages
+                const messages = (Store.getState() as Props).messages;
                 console.log(messages)
                 if(!messages){
-                    Store.set('messages', data)
+                    Store.set('messages', data.reverse())
                 } else {
                     Store.set('messages', [...messages, data])
                 }
@@ -66,6 +66,8 @@ export default class Socket{
     private ping(){
         if(this.socket.readyState == 1){
             this.sendMessage('ping', 'ping');
+        } else {
+            alert('Соединение закрыто')
         }
     }
 
@@ -74,10 +76,14 @@ export default class Socket{
     }
 
     public sendMessage(type:unknown, message : string){
-        this.socket.send(JSON.stringify({
-            content: message,
-            type: type,
-        }));
+        if(this.socket.readyState == 1){
+            this.socket.send(JSON.stringify({
+                content: message,
+                type: type,
+            }));
+        } else {
+            alert('Соединение закрыто')
+        }
     }
 
     public close(code: number, reason: string){
