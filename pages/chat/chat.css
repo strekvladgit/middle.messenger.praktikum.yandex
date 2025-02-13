@@ -21,6 +21,18 @@
 
 .chat-list{
     border-right:1px solid var(--light-blue);
+
+    &-button{
+        width:100%;
+        background:rgb(0 0 0 / 5%);
+        text-align: center;
+        cursor: pointer;
+        padding:10px;
+
+        &:hover{
+            background:rgb(0 0 0 / 10%);
+        }
+    }
 }
 
 .chat-listitem{
@@ -109,6 +121,10 @@
     &__title{
         display: flex;
         align-items:center;
+
+        & img{
+            cursor: pointer;
+        }
     }
 
     &__name{
@@ -119,6 +135,8 @@
     &__controls{
         display: flex;
         align-items:center;
+        justify-content: flex-end;
+        flex-grow: 1;
     }
 
     &__controls-button{
@@ -163,7 +181,7 @@
 }
 
 .chat-content{
-    padding:10px 10px 20px;
+    padding:10px 0 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -230,6 +248,20 @@
     
 }
 
+.chat-area{
+    max-height: 100%;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width:3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
+        border-radius:4px
+    }
+}
+
 .profile-panel{
     border-top: 1px solid var(--light-blue);
     display: flex;
@@ -253,6 +285,7 @@
     &__link{
         display: flex;
         text-decoration: none;
+        cursor: pointer;
     }
 
     &__username{
@@ -305,6 +338,10 @@
         opacity: 0.5;
         transition: 0.3s opacity;
 
+        & img{
+            width:30px;
+        }
+
         &:hover{
             opacity: 1;
         }
@@ -317,12 +354,67 @@
     grid-row: span 2;
     border-left: 1px solid var(--light-blue);
     background: rgb(0 0 0 / 10%);
+    
 
-    &-search-title{
+    &-title{
         text-align: center;
         margin:10px 0 5px;
         font-style: italic;
         opacity: 0.6;
+    }
+
+    &-user{
+        padding:10px;
+        width:100%;
+        display: flex;
+        align-items:center;
+        justify-content: space-between;
+        
+
+        &__data{
+            display: flex;
+            align-items: center;
+        }
+
+        &__avatar{
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 2px solid var(--dark-blue);
+
+            & img{
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &__name{
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--dark-blue);
+            padding-left:10px;
+        }
+
+        & button{
+            opacity: 0;
+            transition: 0.2s all;
+            border-radius:50%;
+            width:20px;
+            height: 20px;
+
+            & img{
+                width:100%;
+            }
+
+            &:hover{
+                background: rgb(255 255 255 / 20%);
+            }
+        }
+
+        &:hover button{
+            opacity: 1;
+        }
     }
 
     & .message{

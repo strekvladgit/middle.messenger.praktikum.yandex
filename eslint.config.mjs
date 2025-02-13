@@ -33,6 +33,7 @@ export default [...compat.extends('airbnb-base'), {
   rules: {
     'max-len': [2, 100],
     '@typescript-eslint/no-unused-vars': 2,
+    'linebreak-style': 0,
   },
 
   ignores: [

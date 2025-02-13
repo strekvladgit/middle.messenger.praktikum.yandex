@@ -3,11 +3,15 @@ import Block, { Props } from "../../framework/Block";
 export default class Input extends Block {
 
     constructor(props:Props){
-
-        const {onBlur, pattern} = props;
-
-        super('input', {...props,
+        
+        const newProps = {
+            ...props,
+            attr: {
+                ...props.attr,
+                id:props.attr.name,
+            },
             events: {
+                ...props.events,
                 blur: (e: Event)=>{
                     const {target} = e;
                     if (target instanceof HTMLInputElement) {
@@ -15,13 +19,18 @@ export default class Input extends Block {
                         const isValid = this.validate(value, pattern)
                         if(onBlur){
                             onBlur(isValid);
-                            console.log(isValid)
+                            
                         }
                     }
                 },
+
             }
-        });
+        }
+        const {onBlur, pattern} = props;
+
+        super('input', newProps);
     }
+
 
     private validate(input: string, regexString: RegExp): boolean {
         if(input){

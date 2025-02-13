@@ -17,7 +17,12 @@ export default class Button extends Block {
         });
     }
     override render(){
-        return `{{text}}`;
+        return `
+            {{#if img}}
+                <img src="{{img.src}}" alt="{{img.alt}}"/>
+            {{/if}}
+            {{text}}
+        `;
     }
     
 }

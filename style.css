@@ -13,6 +13,7 @@ html {
   font-family: Roboto, sans-serif;
   color: #414141;
   background: none;
+  scroll-behavior: smooth;
 }
 
 a,
@@ -33,6 +34,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
 }
