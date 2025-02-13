@@ -1,5 +1,6 @@
 import {ClassType} from "./Block";
 import Route from "./Route";
+import Store from "./Store";
 
 
 export default class Router {
@@ -33,6 +34,13 @@ export default class Router {
                 this._onRoute(location.pathname);
             }
             
+        }
+
+        const {user} = Store.getState()
+        if(!user){
+            this.go('/')
+        } else if(window.location.pathname === '/'&&user) {
+            this.go('/messenger')
         }
 
         this._onRoute(window.location.pathname)

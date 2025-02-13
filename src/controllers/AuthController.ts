@@ -28,7 +28,7 @@ class AuthController{
             .then(()=>{new Router('#app').go('/messenger');})
             .catch((error)=>{
                 if (error === "User already in system"){
-                    new Router('#app').go('/')
+                    new Router('#app').go('/messenger')
                 } else {
                     alert(error)
                 }
@@ -36,9 +36,9 @@ class AuthController{
     }
 
     public getSelf(){
-        AuthAPI.getUser().then((data)=>data)
+        return AuthAPI.getUser().then((data)=>data)
             .then(data=>{Store.set('user', data); return data})
-            .then(()=>{ChatController.getChats({limit:'5'})})
+            .then((data)=>{ChatController.getChats({limit:'5'});return data})
             .catch((error)=>{
                 if (error === "Cookie is not valid"){
                     new Router('#app').go('/')
