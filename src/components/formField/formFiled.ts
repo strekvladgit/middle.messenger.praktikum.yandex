@@ -1,6 +1,6 @@
 import Block, {Props} from "../../framework/Block";
 
-export default class formField extends Block {
+export default class FormField extends Block {
 
     constructor(props:Props){
         

@@ -1,6 +1,6 @@
 import Block, { Props } from "../../src/framework/Block";
 import Form from "../../src/components/form/Form";
-import formField from "../../src/components/formField/formFiled";
+import FormField from "../../src/components/formField/formFiled";
 import Button from "../../src/components/button/Button";
 import Modal from "../../src/components/modal/Modal";
 import connect from "../../src/utils/connect";
@@ -97,37 +97,37 @@ const formFields =  [
         class: 'form-hidden',
         input: inputs.avatar          
     }),
-    new formField({
+    new FormField({
         attr: {class: 'form-input-wrap'}, 
         text:'Почта', 
         errorMessage:'Email должен быть корректным и содержать "собаку" (@) и точку после неё.',
         input: inputs.email
     }),
-    new formField({
+    new FormField({
         attr: {class: 'form-input-wrap'}, 
         text:'Логин',
         errorMessage:'Логин должен содержать от 3 до 20 символов, может включать буквы и цифры, но не состоять только из цифр. Без пробелов и спецсимволов.',
         input: inputs.login
     }),
-    new formField({
+    new FormField({
         attr: {class: 'form-input-wrap'}, 
         text:'Отображаемое имя', 
         errorMessage:'',
         input: inputs.displayName
     }),
-    new formField({
+    new FormField({
         attr: {class: 'form-input-wrap'}, 
         text:'Имя',
         errorMessage:'Имя должно начинаться с заглавной буквы, содержать только буквы, без пробелов и цифр, допускается дефис.',
         input: inputs.firstName
     }),
-    new formField({
+    new FormField({
         attr: {class: 'form-input-wrap'}, 
         text:'Фамилия', 
         errorMessage:'Имя должно начинаться с заглавной буквы, содержать только буквы, без пробелов и цифр, допускается дефис.',
         input: inputs.secondName
     }),
-    new formField({
+    new FormField({
         attr: {class: 'form-input-wrap'}, 
         text:'Телефон', 
         errorMessage:'Телефон должен содержать от 10 до 15 символов и состоять только из цифр, может начинаться с плюса.',
@@ -176,7 +176,7 @@ class Profile extends Block{
                         },
                         
                         formFields: [
-                            new formField({
+                            new FormField({
                                 attr: {class: 'form-input-wrap'}, 
                                 text:'Старый пароль',
                                 errorMessage:'Пароль должен содержать от 8 до 40 символов, обязательно хотя бы одну заглавную букву и цифру.',
@@ -189,7 +189,7 @@ class Profile extends Block{
                                     }
                                 })
                             }),
-                            new formField({
+                            new FormField({
                                 attr: {class: 'form-input-wrap'}, 
                                 text:'Новый пароль',
                                 errorMessage:'Пароль должен содержать от 8 до 40 символов, обязательно хотя бы одну заглавную букву и цифру.',

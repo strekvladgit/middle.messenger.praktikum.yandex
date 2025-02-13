@@ -38,7 +38,7 @@ class AuthController{
     public getSelf(){
         return AuthAPI.getUser().then((data)=>data)
             .then(data=>{Store.set('user', data); return data})
-            .then((data)=>{ChatController.getChats({limit:'5'});return data})
+            .then((data)=>{ChatController.getChats({limit:'10'});return data})
             .catch((error)=>{
                 if (error === "Cookie is not valid"){
                     new Router('#app').go('/')
