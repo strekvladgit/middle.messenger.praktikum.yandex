@@ -6,12 +6,11 @@ export default class Modal extends Block {
 
     constructor(props:Props){
 
-        const {onClick} = props;
+        const {onClick } = props;
 
         super('div', {...props,
             events: {
                 click: (e: Event)=>{
-                    e.preventDefault();
                     const {target} = e;
                     if (target instanceof HTMLElement) {
                         const classList = target.classList;
@@ -20,14 +19,15 @@ export default class Modal extends Block {
                         }
                     }
                 },
-            }
+            },
         });
     }
 
     override render(){
-        console.log(this.props.modalClass)
         return `
-            {{{form}}}     
+            <div class="modal-overlay">
+                {{{form}}}
+            </div>
         `;
     }
 }
