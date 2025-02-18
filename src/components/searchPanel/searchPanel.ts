@@ -5,7 +5,7 @@ import Input from "../input/Input";
 export default class SearchPanel extends Block {
 
     constructor(){
-        let timeout : number | null = null;
+        let timeout : ReturnType<typeof setTimeout> | null = null;
         super('div', {
             attr:{
                 class:'chat-search-wrap'
