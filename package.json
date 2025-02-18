@@ -12,7 +12,8 @@
     "lint:css": "stylelint **/*.css",
     "lint:js": "eslint .",
     "lint": "npm-run-all --parallel lint:css lint:js",
-    "precommit": "npm-run-all --parallel lint:css lint:js test"
+    "precommit": "npm-run-all --parallel lint:css lint:js test",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "npm-run-all": "1.5.2",
@@ -52,10 +53,5 @@
   },
   "engines": {
     "node": "v22.12.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "precommit"
-    }
   }
 }
