@@ -11,7 +11,8 @@
     "test": "mocha --no-warnings",
     "lint:css": "stylelint **/*.css",
     "lint:js": "eslint .",
-    "lint": "npm-run-all --parallel lint:css lint:js"
+    "lint": "npm-run-all --parallel lint:css lint:js",
+    "precommit": "npm-run-all --parallel lint:css lint:js test"
   },
   "devDependencies": {
     "npm-run-all": "1.5.2",
@@ -54,7 +55,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all test lint:all"
+      "pre-commit": "precommit"
     }
   }
 }
