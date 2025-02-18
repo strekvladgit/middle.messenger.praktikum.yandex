@@ -29,7 +29,7 @@ export default class Block {
 
   protected lists: Record<string, Props[]> | Record<string, Block[]> = {};
 
-  private eventBus: ()=> EventBus;
+  protected eventBus: ()=> EventBus;
   protected _id = makeID();
 
 

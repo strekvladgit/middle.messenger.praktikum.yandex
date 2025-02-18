@@ -36,9 +36,5 @@ export default [...compat.extends('airbnb-base'), {
     'linebreak-style': 0,
   },
 
-  ignores: [
-    'node_modules',
-    'dist',
-    'build',
-  ],
+  ignores: ['dist/**', '**/*.min.js', 'node_modules/**'],
 }];
