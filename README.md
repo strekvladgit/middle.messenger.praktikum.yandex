@@ -16,4 +16,4 @@
 
 # Запуск линтеров npm run lint
 
-# Запуск тестов npm run test
+# Запуск тестов npm run test 
