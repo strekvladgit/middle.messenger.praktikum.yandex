@@ -1,6 +1,6 @@
 import './style.css';
 import Router from './src/framework/Router.ts'
-import {Chat, Login, Register, PagesList, Profile, Page404} from './pages'
+import {Chat, Login, Register, Profile, Page404} from './pages'
 import AuthController from './src/controllers/AuthController.ts'
 
 

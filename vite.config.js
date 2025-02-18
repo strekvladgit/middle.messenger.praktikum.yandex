@@ -3,6 +3,14 @@ import Inspect from 'vite-plugin-inspect';
 import { resolve } from 'path';
 
 export default {
+  define: {
+    global: {},
+  },
+  resolve: {
+    alias: {
+      crypto: 'crypto-js',
+    },
+  },
   build: {
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,

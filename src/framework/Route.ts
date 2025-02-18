@@ -5,9 +5,9 @@ import { renderDOM } from "../utils/renderDOM";
 
 export default class Route {
 
-    private _pathname: string;
+    public _pathname: string;
     private _blockClass: ClassType;
-    private _block: Block | null; 
+    public _block: Block | null; 
     private _props:Props;
 
     constructor(pathname:string, view: ClassType, props:Props) {
@@ -40,7 +40,7 @@ export default class Route {
         if (!this._block) {
             this._block = new this._blockClass({});
             renderDOM(this._props.rootQuery, this._block as Block);
-            return;
+            return true;
         }
     }
 }

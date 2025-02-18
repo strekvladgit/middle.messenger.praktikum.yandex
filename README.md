@@ -5,10 +5,15 @@
 
 ### Ссылка на проект https://yandexpract.netlify.app/
 
-### Страницы:
-http://localhost:3000/pages/register/register.html
-http://localhost:3000/pages/login/login.html
-http://localhost:3000/pages/profile/profile.html
-http://localhost:3000/pages/chat/chat.html
-http://localhost:3000/pages/errors/page4xx/page4xx.html
-http://localhost:3000/pages/errors/page5xx/page5xx.html
+
+### Установка и запуск проекта:
+
+# Установить зависимости npm install
+
+# Запуск проекта npm run start
+
+# Проект доступен по ссылке http://localhost:3000
+
+# Запуск линтеров npm run lint
+
+# Запуск тестов npm run test 

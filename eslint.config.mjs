@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
+// eslint-disable-next-line import/no-unresolved
 import tsParser from '@typescript-eslint/parser';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -36,9 +38,5 @@ export default [...compat.extends('airbnb-base'), {
     'linebreak-style': 0,
   },
 
-  ignores: [
-    'node_modules',
-    'dist',
-    'build',
-  ],
+  ignores: ['dist/**', '**/*.min.js', 'node_modules/**'],
 }];

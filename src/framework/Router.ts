@@ -4,7 +4,7 @@ import Store from "./Store";
 
 
 export default class Router {
-    private routes:Route[] = [];
+    public routes:Route[] = [];
     private history: History = window.history;
     private _currentRoute : Route | null = null;
     private static __instance: Router | null;

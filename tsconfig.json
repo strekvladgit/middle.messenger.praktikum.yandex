@@ -19,8 +19,14 @@
         "allowSyntheticDefaultImports": true
     },
     "include": [
-        "src",
-        "pages"
-    ]
+        "src/**/*",
+        "pages/**/*"
+    ],
+    "exclude": ["node_modules"],
+    "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node",
+        "transpileOnly": true
+    }
 }
   
